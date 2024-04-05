@@ -1,7 +1,6 @@
 import torch.nn as nn
 import torch
 
-# creating convnet builder for MNIST dataset, with pooling
 class ConvBlock(nn.Module):
     def __init__(self, in_channels, out_channels, kernel_size, stride, padding, dropout=0.5):
         super(ConvBlock, self).__init__()
