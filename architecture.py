@@ -1,5 +1,9 @@
 import torch.nn as nn
 import torch
+import torchvision
+import torchvision.transforms as transforms
+import torch.optim as optim
+
 
 class ConvBlock(nn.Module):
     def __init__(self, in_channels, out_channels, kernel_size, stride, padding, dropout=0.5):
@@ -60,23 +64,65 @@ class ConvNetBuilder(nn.Module):
         return x
     
 
+class MNISTDataLoader:
 
+    def __init__(self, batch_size):
+        self.batch_size = batch_size
 
+    def load_data(self): # don't donwload if already downloaded
 
-# test
-input_dict = { "size": [32, 64, 128, 256], "kernel_size": [3, 3, 3, 3], "stride": [1, 1, 1, 1], "padding": [1, 1, 1, 1], "dropout": [0.5, 0.5, 0.5, 0.5] }
-input_channels = 1
-output_channels = 10
+        transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))])
+        trainset = torchvision.datasets.MNIST(root='./data', train=True, download=True, transform=transform)
+        trainloader = torch.utils.data.DataLoader(trainset, batch_size=self.batch_size, shuffle=True)
 
-convnet4 = ConvNetBuilder(input_channels, output_channels, input_dict)
+        test_dataset = torchvision.datasets.MNIST(root='./data', train=False, download=True, transform=transform)
+        test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=self.batch_size, shuffle=False)
 
-print("successfully created convnet4 for MNIST dataset with pooling")
-print(convnet4)
+        return trainloader, test_loader
+        
 
-# test: creating a random tensor and forwarding it through the network
+def train_network(model, trainloader, epochs, lr):
 
-x = torch.randn(1, 1, 28, 28)
-output = convnet4(x)
+    criterion = nn.CrossEntropyLoss()
+    optimizer = optim.Adam(model.parameters(), lr=lr)
 
-print("successfully forwarded a random tensor through the network")
-print(output.shape)
+    for epoch in range(epochs):
+        running_loss = 0.0
+        for i, data in enumerate(trainloader, 0):
+            inputs, labels = data
+            optimizer.zero_grad()
+            outputs = model(inputs)
+            loss = criterion(outputs, labels)
+            loss.backward()
+            optimizer.step()
+
+            running_loss += loss.item()
+            if i % 100 == 99:
+                print('[%d, %5d] loss: %.3f' % (epoch + 1, i + 1, running_loss / 100))
+                running_loss = 0.0
+
+    print("Finished Training")
+    return model
+
+def test_network(model, testloader):
+
+    correct = 0
+    total = 0
+    with torch.no_grad():
+        for data in testloader:
+            images, labels = data
+            outputs = model(images)
+            _, predicted = torch.max(outputs.data, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
+
+    print('Accuracy of the network on the 10000 test images: %d %%' % (100 * correct / total))
+    return correct / total
+
+def get_softmax_output(model, data):
+    images, labels = data
+    outputs = model(images)
+    softmax = nn.Softmax(dim=1)
+    softmax_outputs = softmax(outputs)
+    return softmax_outputs
+
