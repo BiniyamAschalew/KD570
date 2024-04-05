@@ -50,7 +50,7 @@ def test_network(model, testloader, device):
     return correct / total
 
 
-def get_soft_labels(model, trainloader, device):
+def __get_soft_labels(model, trainloader, device):
     model.eval()  # Set the model to evaluation mode
     soft_labels = []
     data_list = []
@@ -70,6 +70,27 @@ def get_soft_labels(model, trainloader, device):
     soft_labels_loader = DataLoader(soft_labels_dataset, batch_size=trainloader.batch_size)
 
     return soft_labels_loader
+
+
+def get_predicted_labels(model, trainloader, device):
+    model.eval() 
+    predicted_labels = []
+    data_list = []
+
+    with torch.no_grad():  
+        for inputs, _ in trainloader:
+
+            inputs = inputs.to(device)
+            outputs = model(inputs)
+
+            _, preds = torch.max(outputs, 1)  
+            predicted_labels.extend(preds.cpu().tolist())
+            data_list.extend(inputs)
+
+    predicted_labels_dataset = TensorDataset(torch.stack(data_list), torch.tensor(predicted_labels))
+    predicted_labels_loader = DataLoader(predicted_labels_dataset, batch_size=trainloader.batch_size)
+
+    return predicted_labels_loader
 
 
 def generate_noise_dataloader(size, device, batch_size=4):

@@ -7,7 +7,8 @@ import numpy as np
 
 # setting a fixed seed
 seed_value = 19
-BATCH_SIZE = 4
+BATCH_SIZE = 32
+
 
 torch.manual_seed(seed_value)
 if torch.cuda.is_available():
@@ -45,12 +46,12 @@ mnist_soft_labels_loader = get_soft_labels(teacher, trainloader, device)
 print("finished getting soft labels for MNIST")
 
 # mnist dataset has 60k images, for the noise we will generate 600k images
-noise_loader = generate_noise_dataloader(600000, device, BATCH_SIZE)
+noise_loader = generate_noise_dataloader(100000, device, BATCH_SIZE)
 noise_soft_labels_loader = get_soft_labels(teacher, noise_loader, device)
 print("finished getting soft labels for noise")
 
 student0 = train_network(student0, noise_soft_labels_loader, 1, 0.001, device)
-student1 = train_network(student1, trainloader, 1, 0.001, device)
+# student1 = train_network(student1, trainloader, 1, 0.001, device)
 student2 = train_network(student2, mnist_soft_labels_loader, 1, 0.001, device)
 
 print("evaluating the four students")
@@ -58,7 +59,7 @@ print("evaluating student 0 which is trained on soft labels from noise")
 test_network(student0, testloader, device)
 
 print("evaluating student 1 which is trained on hard labels")
-test_network(student1, testloader, device)
+# test_network(student1, testloader, device)
 
 print("evaluating student 2 which is trained on soft labels")
 test_network(student2, testloader, device)
