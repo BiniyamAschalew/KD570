@@ -62,4 +62,13 @@ def get_soft_labels(model, trainloader):
     return soft_labels_loader
 
 
+def generate_noise_dataloader(size, batch_size=4):
 
+    data = torch.randn(size, 1, 28, 28)
+    data = (data - 0.5) / 0.5
+    labels = torch.randint(0, 10, (size,))
+
+    dataset = TensorDataset(data, labels)
+    dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
+
+    return dataloader
