@@ -48,8 +48,18 @@ def main(config_dir: str):
     """Training the models"""
 
     logger.print("Training the models")
-    teacher_model = train_model(teacher_model, train_loader, EPOCHS, device, logger)
-    teacher_acc = test_model(teacher_model, test_loader, device, logger)
+
+    # logger.print(f"Training teacher model: {teacher_config['model']}")
+    # teacher_model = train_model(teacher_model, train_loader, EPOCHS, device, logger)
+    # teacher_acc = test_model(teacher_model, test_loader, device, logger)
+
+    logger.print(f"Training student 1 model: {student_config['model']}")    
+    student_model1 = train_model(student_model1, train_loader, EPOCHS, device, logger)
+    student_acc1 = test_model(student_model1, test_loader, device, logger)
+
+    logger.print(f"Training student 2 model: {student_config['model']}")
+    student_model2 = train_distillation_model(teacher_model, student_model2, train_loader, device, logger, config)
+    student_acc2 = test_model(student_model2, test_loader, device, logger) 
 
     # if not teacher_config["load_from_path"]:
     #     teacher_model = train_model(teacher_model, trainloader, EPOCHS, device, logger)
@@ -57,6 +67,8 @@ def main(config_dir: str):
     #     if teacher_config["save_path"]:
     #         torch.save(teacher_model.state_dict(), teacher_config["save_path"])
     #         logger.print(f"Teacher model saved at {teacher_config['save_path']}")
+
+
 
     
 

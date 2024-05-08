@@ -17,7 +17,7 @@ class Logger:
         file_name = self.log_dir + f"/log{current_time}.txt"
 
         with open(file_name, "a") as file:
-            file.write(message)
+            file.write(message + "\n")
         
         print(message)
 

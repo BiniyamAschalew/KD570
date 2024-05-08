@@ -1,0 +1,2 @@
+Finished Training
+Accuracy of the network on the test images: 92.91%

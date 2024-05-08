@@ -30,7 +30,9 @@ def train_model(model: nn.Module, trainloader: DataLoader, epochs: int, device: 
 
             epoch_loss += loss.item()
 
-            logger.print(f'Epoch {epoch+1}/{epochs} - Batch {i+1}/{len(trainloader)} - Loss: {loss.item()}')
+            if i % 100 == 99:
+                logger.print(f'Epoch {epoch+1}/{epochs} - Loss: {epoch_loss / 100}')
+
 
         logger.print(f'Epoch {epoch+1}/{epochs} - Loss: {epoch_loss / len(trainloader)}')
 
@@ -38,20 +40,27 @@ def train_model(model: nn.Module, trainloader: DataLoader, epochs: int, device: 
     return model
 
 
-def train_distillation_model(teacher: nn.Module, student: nn.Module, trainloader: DataLoader, epochs: int,
-                    temperature: float, distillation_weight: float, ce_weight: float, device: torch.device, logger: object) -> nn.Module:
+def train_distillation_model(teacher: nn.Module, student: nn.Module, trainloader: DataLoader,
+                     device: torch.device, logger: object, config: dict) -> nn.Module:
     
         teacher.eval()
         student.train()
         teacher.to(device)
         student.to(device)
 
+        epochs = config['epochs']
+        temperature = config['temperature']
+        distillation_weight = config['distillation_weight']
+        ce_weight = config['ce_weight']
+
+
         criterion = nn.CrossEntropyLoss()
         optimizer = optim.Adam(student.parameters(), lr=0.001)
     
         for epoch in range(epochs):
             running_loss = 0.0
-            for inputs, labels in trainloader:
+            for j,  (inputs, labels) in enumerate(trainloader):
+
     
                 inputs, labels = inputs.to(device), labels.to(device)
                 optimizer.zero_grad()
@@ -73,6 +82,11 @@ def train_distillation_model(teacher: nn.Module, student: nn.Module, trainloader
                 optimizer.step()
     
                 running_loss += total_loss.item()
+
+                if j % 100 == 99:
+                    logger.print(f"Epoch {epoch + 1}/{epochs} | Iteration {j + 1}/{len(trainloader)} | Loss: {running_loss / 100:.3f}")
+
+
             logger.print(f"Epoch {epoch + 1}/{epochs} | Average Loss: {running_loss / len(trainloader):.3f}")
     
         return student 
