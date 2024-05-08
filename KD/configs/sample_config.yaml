@@ -7,14 +7,20 @@ device: cuda
 
 # KD papermeters
 temperature: 1
-alpha: 0.5
-beta: 0.5
+distillation_weight: 0.5
+ce_weight: 0.5
 
 # model parameters
 teacher_model: custom
 student_model: custom
+pretraiend: 
 
 # dataset parameters
 dataset: MNIST
+
+# should be c x h x w
+shape: [1, 28, 28]
+num_classes: 10
+
 
 log_dir: "./logs"
