@@ -11,11 +11,9 @@ distillation_weight: 0.5
 ce_weight: 0.5
 
 # model parameters
-teacher_model: custom
-student_model: custom
-pretraiend: True 
-load_model: False
-model_path: "./models"
+teacher_model_config: model_configs/sample_model_config1.yaml
+student_model_config: model_configs/sample_model_config2.yaml
+
 
 # dataset parameters
 dataset: MNIST

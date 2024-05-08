@@ -4,21 +4,23 @@ import torch
 import torch.nn as nn
 import torchvision.models as models
 
-def build_model(model_name: str, config: dict, input_dict: dict = None ) -> nn.Module:
+# def build_model(model_name: str, config: dict, input_dict: dict = None ) -> nn.Module:
+def build_model(model_config: dict) -> nn.Module:
         
-        if config["load_model"]:
-            model = torch.load(config["model_path"])
+        if model_config["load_from_path"]:
+            model = torch.load(model_config["model_path"])
             return model
 
-        out_channels = config["num_classes"]
-        pretrained = config["pretrained"]
+        out_channels = model_config["num_classes"]
+        pretrained = model_config["pretrained"]
+        model_name = model_config["model"]
 
-        shape = config["shape"]
+        shape = model_config["input_shape"]
         input_channels = shape[0]
         input_size = shape[1]
 
         if model_name == "custom":
-            model = ConvNetBuilder(input_channels, out_channels, input_dict, input_size)
+            model = ConvNetBuilder(input_channels, out_channels, model_config, input_size)
         
         elif model_name == "resnet18":
             model = ResNet18Builder(out_channels, pretrained)
