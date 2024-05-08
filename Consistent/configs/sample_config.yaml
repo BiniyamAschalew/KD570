@@ -1,0 +1,20 @@
+# general training parameters
+seed: 19
+batch_size: 32
+epochs: 2
+learning_rate: 0.001
+device: cuda
+
+# KD papermeters
+temperature: 1
+alpha: 0.5
+beta: 0.5
+
+# model parameters
+teacher_model: custom
+student_model: custom
+
+# dataset parameters
+dataset: MNIST
+
+log_dir: "./logs"
