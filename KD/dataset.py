@@ -73,17 +73,25 @@ class CIFAR10DataLoader(KDataLoader):
     
 
 class NoiseDataLoader(KDataLoader):
-    # if it is not saved then generate and save it for later use
     def __init__(self, batch_size: int, shape: List[int]):
         super(NoiseDataLoader, self).__init__(batch_size)
         self.shape = shape
 
     def load_data(self) -> Tuple[DataLoader, DataLoader]:
 
-        pass
+        train_data = torch.randn(self.shape)
+        test_data = torch.randn(self.shape)
+
+        trainset = TensorDataset(train_data)
+        train_loader = DataLoader(trainset, batch_size=self.batch_size, shuffle=True)
+
+        testset = TensorDataset(test_data)
+        test_loader = DataLoader(testset, batch_size=self.batch_size, shuffle=False)
+
+        return train_loader, test_loader
+    
 
 
-    pass
-
+    
     
 
