@@ -20,7 +20,10 @@ def main(config_dir: str):
     config = load_config(config_dir)
     device = get_device(config["device"])
     logger = get_logger(log_dir=config["log_dir"])
-    parallel_process = config["multiprocess"]
+
+
+    PARALLEL = config["multiprocess"]
+    EPOCHS = config["epochs"]
 
     set_seed(config["seed"])
 
@@ -29,12 +32,12 @@ def main(config_dir: str):
     teacher_config = load_config(config["teacher_model_config"])
     student_config = load_config(config["student_model_config"])
 
-    teacher_model = build_model(teacher_config, device, parallel_process)
+    teacher_model = build_model(teacher_config, device, PARALLEL)
     teacher_model = nn.DataParallel(teacher_model)#.to(device)
     logger.print(f"Teacher model successfully loaded")
 
-    student_model1 = build_model(student_config, device, parallel_process)
-    student_model2 = build_model(student_config, device, parallel_process)
+    student_model1 = build_model(student_config, device, PARALLEL)
+    student_model2 = build_model(student_config, device, PARALLEL)
     
     ## to make the students weight identical
     student_model2.load_state_dict(student_model1.state_dict())
@@ -47,15 +50,15 @@ def main(config_dir: str):
 
     """Training the models"""
 
-    criterion = nn.CrossEntropyLoss()
 
-
-
-# def train_model(model: nn.Module, trainloader: DataLoader, criterion: nn.Module, optimizer: optim.Optimizer, epochs: int, device: torch.device, logger: object):
+# def train_model(model: nn.Module, trainloader: DataLoader, epochs: int, device: torch.device, logger: object):
 
     if not teacher_config["load_from_path"]:
-        teacher_model = train_model(teacher_model, trainloader, config["teacher_model_config"], device, logger)
-        torch.save(teacher_model.state_dict(), config["teacher_model_path"])
+        teacher_model = train_model(teacher_model, trainloader, EPOCHS, device, logger)
+        
+        if teacher_config["save_path"]:
+            torch.save(teacher_model.state_dict(), teacher_config["save_path"])
+        torch.save(teacher_model.state_dict(), teacher_config["save_path"])
 
     
 

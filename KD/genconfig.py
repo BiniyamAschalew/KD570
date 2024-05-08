@@ -17,6 +17,7 @@ def create_model_config(
     stride = [1, 1],
     padding = [0, 0],
     dropout = [0, 0],
+    save_path = "",
 
     ):
 
@@ -34,7 +35,8 @@ def create_model_config(
                         kernel_size: {kernel_size}
                         stride: {stride}
                         padding: {padding}
-                        dropout: {dropout}"""
+                        dropout: {dropout}
+                        save_path: {save_path}"""
 
     write_config(".configs/model_config/mnist_custom1.yaml", model_config)
     return model_config
@@ -70,6 +72,7 @@ def create_main_config(
                     epochs: {epochs}
                     learning_rate: {learning_rate}
                     device: {device}
+                    multiprocess: {multiprocess}
 
                     temperature: {temperature}
                     distillation_weight: {distillation_weight}
