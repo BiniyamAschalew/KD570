@@ -13,7 +13,7 @@ class Logger:
 
     def print(self, message):
 
-        current_time = datetime.datetime.now().strfttime("%%d %H:%M")
+        current_time = datetime.datetime.now().strftime("%d %H:%M")
         file_name = self.log_dir + f"/log{current_time}.txt"
 
         with open(file_name, "a") as file:
@@ -28,9 +28,11 @@ def load_config(config_dir):
 
 
 def get_device(device: str) -> torch.device:
-    available_device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    available_device = "cuda" if torch.cuda.is_available() else "cpu"
     if device != available_device:
         raise ValueError(f"Device {device} not available.")
+
+    device = torch.device(device)
     return device
 
 def get_time():

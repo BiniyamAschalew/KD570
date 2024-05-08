@@ -13,8 +13,8 @@ distillation_weight: 0.5
 ce_weight: 0.5
 
 # model parameters
-teacher_model_config: model_configs/sample_model_config1.yaml
-student_model_config: model_configs/sample_model_config2.yaml
+teacher_model_config: configs/model_configs/sample_model_config1.yaml
+student_model_config: configs/model_configs/sample_model_config2.yaml
 
 
 

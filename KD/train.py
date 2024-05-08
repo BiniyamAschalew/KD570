@@ -1,4 +1,5 @@
 from typing import List, Tuple
+import os
 
 import torch
 import torch.nn as nn
@@ -28,6 +29,8 @@ def train_model(model: nn.Module, trainloader: DataLoader, epochs: int, device: 
             optimizer.step()
 
             epoch_loss += loss.item()
+
+            logger.print(f'Epoch {epoch+1}/{epochs} - Batch {i+1}/{len(trainloader)} - Loss: {loss.item()}')
 
         logger.print(f'Epoch {epoch+1}/{epochs} - Loss: {epoch_loss / len(trainloader)}')
 

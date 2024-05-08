@@ -27,7 +27,7 @@ def main(config_dir: str):
 
     set_seed(config["seed"])
 
-    trainloader, testloader = load_dataset(config["dataset"], config["batch_size"])
+    train_loader, test_loader = load_dataset(config["dataset"], config["batch_size"])
 
     teacher_config = load_config(config["teacher_model_config"])
     student_config = load_config(config["student_model_config"])
@@ -42,24 +42,25 @@ def main(config_dir: str):
     ## to make the students weight identical
     student_model2.load_state_dict(student_model1.state_dict())
 
-    student_model1 = nn.DataParallel(student_model1)
-    student_model2 = nn.DataParallel(student_model2)#.to(device) <- applied inside build_model function
-
-    assert torch.norm(student_model1.module.conv1.weight - student_model2.module.conv1.weight) == 0
+    # assert torch.norm(student_model1.module.conv_blocks.0.conv.weight - student_model2.module.conv_blocks.0.conv.weight) == 0
     logger.print(f"Student model successfully loaded")
 
     """Training the models"""
 
+    logger.print("Training the models")
+    teacher_model = train_model(teacher_model, train_loader, EPOCHS, device, logger)
+    teacher_acc = test_model(teacher_model, test_loader, device, logger)
 
-# def train_model(model: nn.Module, trainloader: DataLoader, epochs: int, device: torch.device, logger: object):
+    # if not teacher_config["load_from_path"]:
+    #     teacher_model = train_model(teacher_model, trainloader, EPOCHS, device, logger)
 
-    if not teacher_config["load_from_path"]:
-        teacher_model = train_model(teacher_model, trainloader, EPOCHS, device, logger)
+    #     if teacher_config["save_path"]:
+    #         torch.save(teacher_model.state_dict(), teacher_config["save_path"])
+    #         logger.print(f"Teacher model saved at {teacher_config['save_path']}")
+
+    
+
         
-        if teacher_config["save_path"]:
-            torch.save(teacher_model.state_dict(), teacher_config["save_path"])
-        torch.save(teacher_model.state_dict(), teacher_config["save_path"])
-
     
 
 

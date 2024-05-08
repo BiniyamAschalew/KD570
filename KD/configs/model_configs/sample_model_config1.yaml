@@ -1,7 +1,7 @@
 model: custom
 pretrained: True 
 load_from_path: False
-model_path: "./models"
+model_path: "../models"
 
 input_shape: [1, 28, 28]
 num_classes: 10

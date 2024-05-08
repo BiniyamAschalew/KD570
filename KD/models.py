@@ -38,7 +38,7 @@ def build_model(model_config: dict, device: torch.device, multiprocess: bool = F
         if multiprocess:
             model = nn.DataParallel(model)
 
-        model = model.to(device)
+        # model = model.to(device)
         return model
 
 
