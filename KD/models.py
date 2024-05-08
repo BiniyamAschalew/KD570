@@ -5,12 +5,8 @@ import torch.nn as nn
 import torchvision.models as models
 
 # def build_model(model_name: str, config: dict, input_dict: dict = None ) -> nn.Module:
-def build_model(model_config: dict) -> nn.Module:
+def build_model(model_config: dict, device: torch.device, multiprocess: bool = False) -> nn.Module:
         
-        if model_config["load_from_path"]:
-            model = torch.load(model_config["model_path"])
-            return model
-
         out_channels = model_config["num_classes"]
         pretrained = model_config["pretrained"]
         model_name = model_config["model"]
@@ -18,8 +14,13 @@ def build_model(model_config: dict) -> nn.Module:
         shape = model_config["input_shape"]
         input_channels = shape[0]
         input_size = shape[1]
+        
 
-        if model_name == "custom":
+        if model_config["load_from_path"]:
+            model = torch.load(model_config["model_path"])
+            return model
+
+        elif model_name == "custom":
             model = ConvNetBuilder(input_channels, out_channels, model_config, input_size)
         
         elif model_name == "resnet18":
@@ -33,6 +34,12 @@ def build_model(model_config: dict) -> nn.Module:
 
         else:
             raise ValueError(f"Model {model_name} not supported.")
+        
+        if multiprocess:
+            model = nn.DataParallel(model)
+
+        model = model.to(device)
+        return model
 
 
 

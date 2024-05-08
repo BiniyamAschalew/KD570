@@ -4,6 +4,8 @@ batch_size: 32
 epochs: 2
 learning_rate: 0.001
 device: cuda
+multiprocess: True 
+
 
 # KD papermeters
 temperature: 1
@@ -13,6 +15,7 @@ ce_weight: 0.5
 # model parameters
 teacher_model_config: model_configs/sample_model_config1.yaml
 student_model_config: model_configs/sample_model_config2.yaml
+
 
 
 # dataset parameters

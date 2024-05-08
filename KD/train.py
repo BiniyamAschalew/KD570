@@ -6,7 +6,10 @@ import torch.optim as optim
 from torch.utils.data import DataLoader, TensorDataset
 
 
-def train_model(model: nn.Module, trainloader: DataLoader, criterion: nn.Module, optimizer: optim.Optimizer, epochs: int, device: torch.device):
+def train_model(model: nn.Module, trainloader: DataLoader, epochs: int, device: torch.device, logger: object):
+
+    criterion = nn.CrossEntropyLoss()
+    optimizer = optim.Adam(model.parameters(), lr=0.001)
     
     model.train()
     model.to(device)
@@ -26,19 +29,22 @@ def train_model(model: nn.Module, trainloader: DataLoader, criterion: nn.Module,
 
             epoch_loss += loss.item()
 
-        print(f'Epoch {epoch+1}/{epochs} - Loss: {epoch_loss / len(trainloader)}')
+        logger.print(f'Epoch {epoch+1}/{epochs} - Loss: {epoch_loss / len(trainloader)}')
 
-    print("Finished Training")
+    logger.print("Finished Training")
     return model
 
 
-def train_distillation_model(teacher: nn.Module, student: nn.Module, trainloader: DataLoader, criterion: nn.Module, optimizer: optim.Optimizer, epochs: int,
-                    temperature: float, distillation_weight: float, ce_weight: float, device: torch.device) -> nn.Module:
+def train_distillation_model(teacher: nn.Module, student: nn.Module, trainloader: DataLoader, epochs: int,
+                    temperature: float, distillation_weight: float, ce_weight: float, device: torch.device, logger: object) -> nn.Module:
     
         teacher.eval()
         student.train()
         teacher.to(device)
         student.to(device)
+
+        criterion = nn.CrossEntropyLoss()
+        optimizer = optim.Adam(student.parameters(), lr=0.001)
     
         for epoch in range(epochs):
             running_loss = 0.0
@@ -64,12 +70,12 @@ def train_distillation_model(teacher: nn.Module, student: nn.Module, trainloader
                 optimizer.step()
     
                 running_loss += total_loss.item()
-            print(f"Epoch {epoch + 1}/{epochs} | Average Loss: {running_loss / len(trainloader):.3f}")
+            logger.print(f"Epoch {epoch + 1}/{epochs} | Average Loss: {running_loss / len(trainloader):.3f}")
     
         return student 
 
 
-def test_model(model: nn.Module, testloader: DataLoader, device: torch.device) -> float:
+def test_model(model: nn.Module, testloader: DataLoader, device: torch.device, logger: object) -> float:
 
     model.eval()
     model.to(device)
@@ -85,5 +91,5 @@ def test_model(model: nn.Module, testloader: DataLoader, device: torch.device) -
             correct += (predicted == labels).sum().item()
 
     accuracy = 100 * correct / total
-    print(f'Accuracy of the network on the test images: {accuracy:.2f}%')
+    logger.print(f'Accuracy of the network on the test images: {accuracy:.2f}%')
     return accuracy

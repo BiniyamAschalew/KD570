@@ -47,6 +47,8 @@ def create_main_config(
     epochs = 2,
     learning_rate = 0.001,
     device = "cuda",
+    multiprocess = True, 
+
 
     temperature = 1,
     distillation_weight = 0.5,
