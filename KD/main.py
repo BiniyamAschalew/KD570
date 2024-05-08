@@ -15,10 +15,19 @@ from utils import get_device, get_logger, load_config
 def main(config_dir: str):
 
     config = load_config(config_dir)
-    device = get_device()
+    device = get_device(config["device"])
     logger = get_logger(log_dir=config["log_dir"])
 
+    trainloader, testloader = load_dataset(config["dataset"], config["batch_size"])
+
+    teacher_model = build_model(config["teacher_model"], device)
+
+    student_model = build_model(config["student_model"], device)
+
+
     
+
+
 
 
 

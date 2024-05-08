@@ -5,6 +5,10 @@ import torch.nn as nn
 import torchvision.models as models
 
 def build_model(model_name: str, config: dict, input_dict: dict = None ) -> nn.Module:
+        
+        if config["load_model"]:
+            model = torch.load(config["model_path"])
+            return model
 
         out_channels = config["num_classes"]
         pretrained = config["pretrained"]

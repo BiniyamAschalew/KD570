@@ -21,8 +21,11 @@ def load_config(config_dir):
     return config
 
 
-def get_device():
-    return torch.device("cuda" if torch.cuda.is_available() else "cpu")
+def get_device(device: str):
+    available_device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    if device != available_device:
+        raise ValueError(f"Device {device} not available.")
+    return device
 
 def get_time():
     return datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")

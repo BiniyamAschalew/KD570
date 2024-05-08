@@ -13,7 +13,9 @@ ce_weight: 0.5
 # model parameters
 teacher_model: custom
 student_model: custom
-pretraiend: 
+pretraiend: True 
+load_model: False
+model_path: "./models"
 
 # dataset parameters
 dataset: MNIST
