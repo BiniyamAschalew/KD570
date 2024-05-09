@@ -6,8 +6,8 @@
 *.tar
 
 dataset/
-data/
-trained_models/
+KD/data/
+KD/trained_models/
 
 
 
