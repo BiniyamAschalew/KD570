@@ -6,6 +6,13 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader, TensorDataset
 
+def save_model(model: nn.Module, model_config: dict): 
+
+    if model_config["save_model"]:
+        torch.save(model.state_dict(), model_config["save_path"])
+        print(f"Model saved at {model_config['save_path']}")
+    else:
+        print("Model not saved as save_model is set to False")
 
 def train_model(model: nn.Module, trainloader: DataLoader, epochs: int, device: torch.device, logger: object):
 

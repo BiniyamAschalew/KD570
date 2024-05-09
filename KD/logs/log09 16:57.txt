@@ -1,0 +1,5 @@
+Teacher model successfully loaded
+Student model successfully loaded
+Training the models
+Training student 1 model: ResNet18
+Training student 2 model: ResNet18

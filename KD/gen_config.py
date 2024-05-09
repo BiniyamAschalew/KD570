@@ -13,7 +13,6 @@ def create_model_config(
     model: str = "custom",
     pretrained: bool = True,
     load_from_path: bool = False,
-    model_path: str = "./models",
 
     size: List[int] = [16, 32],
     kernel_size: List[int] = [3, 3],
@@ -21,8 +20,8 @@ def create_model_config(
     padding: List[int] = [0, 0],
     dropout: List[float] = [0, 0],
 
-    save_model: bool = True,
-    save_path: str = "./models/sample_model.pth",
+    save_model: bool = False,
+    save_path: str = "./trained_models/sample_model.pth",
 
     dataset: str = "MNIST",
     dataset_config_dir: str = "configs/dataset_configs",
@@ -31,6 +30,9 @@ def create_model_config(
     config_dir: str = "configs/model_configs"
 
     ) -> str:
+
+    model_path = f"./trained_models/{model}.pth",
+        
 
     dataset_config_dir = os.path.join(dataset_config_dir, f"{dataset}.yaml")
     dataset_config = load_config(dataset_config_dir)
@@ -56,8 +58,8 @@ dropout: {dropout}
 
 dataset: {dataset}
 
-save_path: {save_path}
-save_model: {save_model}"""
+save_model: {save_model}
+save_path: {save_path}"""
 
     config_dir = os.path.join(config_dir, config_file_name)
     write_config(config_dir, model_config)
@@ -77,8 +79,8 @@ def create_main_config(
     distillation_weight: float = 0.5,
     ce_weight: float = 0.5,
 
-    teacher_model_config: str = "model_configs/sample_model_config1.yaml",
-    student_model_config: str = "model_configs/sample_model_config2.yaml",
+    teacher_model_config: str = "configs/model_configs/sample_model_config1.yaml",
+    student_model_config: str = "configs/model_configs/sample_model_config2.yaml",
 
     dataset: str = "MNIST",
     dataset_config_dir: str = "configs/dataset_configs",
@@ -131,9 +133,19 @@ num_classes: {num_classes}"""
 
 def main():
 
-    create_dataset_config()
-    create_model_config(config_file_name = "example_model_config.yaml")
-    create_main_config(config_file_name = "example_config.yaml")
+    # create_dataset_config()
+    create_model_config(config_file_name = "ResNet18_MNIST.yaml",
+                        model = "ResNet18",
+                        dataset = "MNIST",
+                        load_from_path = True,
+                        save_model = True,
+                        save_path = "./trained_models/ResNet18_MNIST.pth")
+
+    create_main_config(config_file_name = "training_config1.yaml",
+                       epochs = 1,
+                       teacher_model_config = "configs/model_configs/ResNet18_MNIST.yaml",
+                       student_model_config = "configs/model_configs/ResNet18_MNIST.yaml")
+                       
 
 if __name__ == "__main__":
     main()

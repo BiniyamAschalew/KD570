@@ -1,7 +1,7 @@
-model: custom
+model: ResNet18
 pretrained: True 
-load_from_path: False
-model_path: ./models
+load_from_path: True
+model_path: ('./trained_models/ResNet18.pth',)
 
 input_shape: [1, 28, 28]
 num_classes: 10
@@ -14,5 +14,5 @@ dropout: [0, 0]
 
 dataset: MNIST
 
-save_path: ./models/sample_model.pth
 save_model: True
+save_path: ./trained_models/ResNet18_MNIST.pth

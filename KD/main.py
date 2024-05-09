@@ -9,8 +9,8 @@ import torch.nn as nn
 # classes camel casing, functions snake casing ( lower case), constants all caps snake casing
 # lets use typing on everyfunction
 
-from models import build_model
-from train import train_model, test_model, train_distillation_model
+from models import load_model
+from train import train_model, test_model, train_distillation_model, save_model
 from dataset import load_dataset
 from utils import get_device, get_logger, load_config, set_seed
 
@@ -32,12 +32,12 @@ def main(config_dir: str):
     teacher_config = load_config(config["teacher_model_config"])
     student_config = load_config(config["student_model_config"])
 
-    teacher_model = build_model(teacher_config, device, PARALLEL)
+    teacher_model = load_model(teacher_config, device, PARALLEL)
     teacher_model = nn.DataParallel(teacher_model)#.to(device)
     logger.print(f"Teacher model successfully loaded")
 
-    student_model1 = build_model(student_config, device, PARALLEL)
-    student_model2 = build_model(student_config, device, PARALLEL)
+    student_model1 = load_model(student_config, device, PARALLEL)
+    student_model2 = load_model(student_config, device, PARALLEL)
     
     ## to make the students weight identical
     student_model2.load_state_dict(student_model1.state_dict())
@@ -49,13 +49,9 @@ def main(config_dir: str):
 
     logger.print("Training the models")
 
-    # logger.print(f"Training teacher model: {teacher_config['model']}")
-    # teacher_model = train_model(teacher_model, train_loader, EPOCHS, device, logger)
-    # teacher_acc = test_model(teacher_model, test_loader, device, logger)
-
     logger.print(f"Training student 1 model: {student_config['model']}")    
-    student_model1 = train_model(student_model1, train_loader, EPOCHS, device, logger)
-    student_acc1 = test_model(student_model1, test_loader, device, logger)
+    # student_model1 = train_model(student_model1, train_loader, EPOCHS, device, logger)
+    # student_acc1 = test_model(student_model1, test_loader, device, logger)
 
     logger.print(f"Training student 2 model: {student_config['model']}")
     student_model2 = train_distillation_model(teacher_model, student_model2, train_loader, device, logger, config)

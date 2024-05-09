@@ -1,26 +1,49 @@
 from typing import List, Tuple
+import os
+import warnings
 
 import torch
 import torch.nn as nn
 import torchvision.models as models
+
+
+def load_model(model_config: dict, device: torch.device, multiprocess: bool = False) -> nn.Module:
+
+    if model_config["load_from_path"]:
+        if os.path.exists(model_config["model_path"]):
+            
+            # load model 
+            model = torch.load(model_config["model_path"])
+            print(f"Model loaded from {model_config['model_path']}")
+
+
+        else:
+
+            warnings.warn(f"Model path {model_config['model_path']} does not exist.")
+            print(f"Model path {model_config['model_path']} does not exist. Building model instead")
+
+        # if multiprocess:
+        #     model = nn.DataParallel(model)
+
+        # model = model.to(device)
+
+    return build_model(model_config, device, multiprocess)
+
+
 
 # def build_model(model_name: str, config: dict, input_dict: dict = None ) -> nn.Module:
 def build_model(model_config: dict, device: torch.device, multiprocess: bool = False) -> nn.Module:
         
         out_channels = model_config["num_classes"]
         pretrained = model_config["pretrained"]
-        model_name = model_config["model"]
+        model_name = model_config["model"].lower()
 
         shape = model_config["input_shape"]
         input_channels = shape[0]
         input_size = shape[1]
-        
+    
 
-        if model_config["load_from_path"]:
-            model = torch.load(model_config["model_path"])
-            return model
-
-        elif model_name == "custom":
+        if model_name == "custom":
             model = ConvNetBuilder(input_channels, out_channels, model_config, input_size)
         
         elif model_name == "resnet18":
@@ -35,8 +58,8 @@ def build_model(model_config: dict, device: torch.device, multiprocess: bool = F
         else:
             raise ValueError(f"Model {model_name} not supported.")
         
-        if multiprocess:
-            model = nn.DataParallel(model)
+        # if multiprocess:
+        #     model = nn.DataParallel(model)
 
         # model = model.to(device)
         return model
