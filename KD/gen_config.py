@@ -81,14 +81,14 @@ def create_main_config(
     student_model_config: str = "model_configs/sample_model_config2.yaml",
 
     dataset: str = "MNIST",
-    shape: List[int] = [1, 28, 28],
-    num_classes: int = 10,
+    dataset_config_dir: str = "configs/dataset_configs",
 
     log_dir: str = "./logs",
     config_file_name: str = "sample_config.yaml",
     config_dir: str = "configs/"
 
     ) -> str:
+
 
     main_config = f"""seed: {seed}
 batch_size: {batch_size}
@@ -105,8 +105,6 @@ teacher_model_config: {teacher_model_config}
 student_model_config: {student_model_config}
 
 dataset: {dataset}
-shape: {shape}
-num_classes: {num_classes}
 
 log_dir: {log_dir}"""
     
@@ -132,10 +130,10 @@ num_classes: {num_classes}"""
     return dataset_config
 
 def main():
-    
+
+    create_dataset_config()
     create_model_config(config_file_name = "example_model_config.yaml")
     create_main_config(config_file_name = "example_config.yaml")
-    # create_dataset_config()
 
 if __name__ == "__main__":
     main()
