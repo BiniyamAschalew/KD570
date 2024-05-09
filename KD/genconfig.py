@@ -1,25 +1,29 @@
-def write_config(config_dir, content):
+from typing import List
+
+def write_config(config_dir: str, content: str):
+
     with open(config_dir, "w") as file:
         file.write(content)
-    return
 
 def create_model_config(
         
-    model = "custom",
-    pretrained = True,
-    load_from_path = False,
-    model_path = "./models",
-    input_shape = [1, 28, 28],
-    num_classes = 10,
+    model: str = "custom",
+    pretrained: bool = True,
+    load_from_path: bool = False,
+    model_path: str = "./models",
+    input_shape: List[int] = [1, 28, 28],
+    num_classes: int = 10,
 
-    size = [16, 32],
-    kernel_size = [3, 3],
-    stride = [1, 1],
-    padding = [0, 0],
-    dropout = [0, 0],
-    save_path = "",
+    size: List[int] = [16, 32],
+    kernel_size: List[int] = [3, 3],
+    stride: List[int] = [1, 1],
+    padding: List[int] = [0, 0],
+    dropout: List[float] = [0, 0],
 
-    ):
+    save_path: str = "",
+    config_file_name: str = ".configs/sample_model_config.yaml"
+
+    ) -> str:
 
     assert(len(size) == len(kernel_size) == len(stride) == len(padding) == len(dropout))
 
@@ -38,34 +42,34 @@ def create_model_config(
                         dropout: {dropout}
                         save_path: {save_path}"""
 
-    write_config(".configs/model_config/mnist_custom1.yaml", model_config)
+    write_config(config_file_name, model_config)
     return model_config
 
 
 def create_main_config(
 
-    seed = 19,
-    batch_size = 32,
-    epochs = 2,
-    learning_rate = 0.001,
-    device = "cuda",
-    multiprocess = True, 
+    seed: int = 19,
+    batch_size: int = 32,
+    epochs: int = 2,
+    learning_rate: float = 0.001,
+    device: str = "cuda",
+    multiprocess: bool = True,
 
+    temperature: float = 1,
+    distillation_weight: float = 0.5,
+    ce_weight: float = 0.5,
 
-    temperature = 1,
-    distillation_weight = 0.5,
-    ce_weight = 0.5,
+    teacher_model_config: str = "model_configs/sample_model_config1.yaml",
+    student_model_config: str = "model_configs/sample_model_config2.yaml",
 
-    teacher_model_config = "model_configs/sample_model_config1.yaml",
-    student_model_config = "model_configs/sample_model_config2.yaml",
+    dataset: str = "MNIST",
+    shape: List[int] = [1, 28, 28],
+    num_classes: int = 10,
 
-    dataset = "MNIST",
-    shape = [1, 28, 28],
-    num_classes = 10,
+    log_dir: str = "./logs",
+    config_file_name: str = ".configs/sample_config.yaml"
 
-    log_dir = "./logs",
-
-    ):
+    ) -> str:
 
     main_config = f"""seed: {seed}
                     batch_size: {batch_size}
@@ -87,5 +91,5 @@ def create_main_config(
 
                     log_dir: {log_dir}"""
     
-    write_config("./main_config.yaml", main_config)
+    write_config(config_file_name, main_config)
     return main_config
