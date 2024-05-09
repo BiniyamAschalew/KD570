@@ -1,3 +1,18 @@
+# added by biniyam
+
+*.tar.gz
+*.zip
+*.tgz
+*.tar
+
+dataset/
+data/
+trained_models/
+
+
+
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
