@@ -1,0 +1,19 @@
+seed: 19
+batch_size: 32
+epochs: 2
+learning_rate: 0.001
+device: cuda
+multiprocess: True
+
+temperature: 1
+distillation_weight: 0.5
+ce_weight: 0.5
+
+teacher_model_config: model_configs/sample_model_config1.yaml
+student_model_config: model_configs/sample_model_config2.yaml
+
+dataset: MNIST
+shape: [1, 28, 28]
+num_classes: 10
+
+log_dir: ./logs

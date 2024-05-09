@@ -1,0 +1,14 @@
+model: custom
+pretrained: True 
+load_from_path: False
+model_path: ./models
+
+input_shape: [1, 28, 28]
+num_classes: 10
+
+size: [16, 32]
+kernel_size: [3, 3]
+stride: [1, 1]
+padding: [0, 0]
+dropout: [0, 0]
+save_path: ./models/sample_model.pth
