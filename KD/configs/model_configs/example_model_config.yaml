@@ -11,4 +11,8 @@ kernel_size: [3, 3]
 stride: [1, 1]
 padding: [0, 0]
 dropout: [0, 0]
+
+dataset: MNIST
+
 save_path: ./models/sample_model.pth
+save_model: True
