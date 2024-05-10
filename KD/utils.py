@@ -9,22 +9,24 @@ class Logger:
 
     def __init__(self, log_dir):
         self.log_dir = log_dir
+        current_time = datetime.datetime.now().strftime("%d %H:%M")
+        self.log_dir = self.log_dir + f"/log{current_time}.txt"
 
 
     def print(self, message):
 
-        current_time = datetime.datetime.now().strftime("%d %H:%M")
-        file_name = self.log_dir + f"/log{current_time}.txt"
-
-        with open(file_name, "a") as file:
-            file.write(message + "\n")
+        message = "\n" + message + "\n"
+        with open(self.log_dir, "a") as file:
+            file.write(message)
         
         print(message)
+
 
 def load_config(config_dir):
     with open(config_dir, "r", encoding="utf-8") as file:
         config = yaml.safe_load(file)
     return config
+
 
 
 def get_device(device: str) -> torch.device:
