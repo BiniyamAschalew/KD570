@@ -21,9 +21,9 @@ def main(config_dir: str):
     device = get_device(config["device"])
     logger = get_logger(log_dir=config["log_dir"])
 
-
     PARALLEL = config["multiprocess"]
     EPOCHS = config["epochs"]
+    LEARNING_RATE = config["learning_rate"]
 
     set_seed(config["seed"])
 
@@ -36,7 +36,7 @@ def main(config_dir: str):
     logger.print(f"Teacher model successfully loaded")
 
     if not trained:
-        train_model(teacher_model, train_loader, EPOCHS, device, logger)
+        train_model(teacher_model, train_loader, EPOCHS, LEARNING_RATE, device, logger)
         if teacher_config["save_model"]:
             save_model(teacher_model, teacher_config)
         
@@ -45,12 +45,12 @@ def main(config_dir: str):
     logger.print(f"Teacher model accuracy: {teacher_acc}")
 
     # ablation study on temperature
-    temperature = list(range(1, 102, 10))
+    temperature = list(range(20, 52, 2))
     accuracy = []
     student_config = load_config(config["student_model_config"])
 
     record = {"temperature": [], "seed": [], "accuracy": []}
-    for seed in range(1):
+    for seed in range(2):
         for temp in temperature:
 
             logger.print(f"Training student model with temperature: {temp}")

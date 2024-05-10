@@ -14,12 +14,12 @@ def save_model(model: nn.Module, model_config: dict):
     else:
         print("Model not saved as save_model is set to False")
 
-def train_model(model: nn.Module, trainloader: DataLoader, epochs: int, device: torch.device, logger: object):
+def train_model(model: nn.Module, trainloader: DataLoader, epochs: int, learning_rate: int, device: torch.device, logger: object):
 
     logger.print("Starting Training")
 
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters(), lr=0.001)
+    optimizer = optim.Adam(model.parameters(), lr=learning_rate)
     
     model.train()
     model.to(device)
