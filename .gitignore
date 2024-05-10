@@ -9,6 +9,16 @@ dataset/
 KD/data/
 KD/trained_models/
 
+KD/data/*
+KD/trained_models/*
+
+KD/data/**
+KD/trained_models/**
+
+data/
+data/*
+data/**
+
 
 
 
