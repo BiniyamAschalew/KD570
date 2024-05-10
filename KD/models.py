@@ -1,33 +1,28 @@
 from typing import List, Tuple
 import os
-import warnings
 
 import torch
 import torch.nn as nn
 import torchvision.models as models
 
 
-def load_model(model_config: dict, device: torch.device, multiprocess: bool = False) -> nn.Module:
+def load_model(model_config: dict, device: torch.device, multiprocess: bool = False) -> Tuple[nn.Module, bool]:
+    
+    model = build_model(model_config, device, multiprocess)
+    trained = False
 
     if model_config["load_from_path"]:
+        print(f"Loading model from {model_config['model_path']}")
+
         if os.path.exists(model_config["model_path"]):
-            
-            # load model 
-            model = torch.load(model_config["model_path"])
+            model.load_state_dict(torch.load(model_config["model_path"]))
+            trained = True
             print(f"Model loaded from {model_config['model_path']}")
 
-
         else:
+            print(f"Model path {model_config['model_path']} does not exist. Using built model instead")
 
-            warnings.warn(f"Model path {model_config['model_path']} does not exist.")
-            print(f"Model path {model_config['model_path']} does not exist. Building model instead")
-
-        # if multiprocess:
-        #     model = nn.DataParallel(model)
-
-        # model = model.to(device)
-
-    return build_model(model_config, device, multiprocess)
+    return model, trained
 
 
 
@@ -45,15 +40,19 @@ def build_model(model_config: dict, device: torch.device, multiprocess: bool = F
 
         if model_name == "custom":
             model = ConvNetBuilder(input_channels, out_channels, model_config, input_size)
+
         
         elif model_name == "resnet18":
-            model = ResNet18Builder(out_channels, pretrained)
+            model = ResNet18Builder(input_channels, out_channels, pretrained)
 
         elif model_name == "resnet50":
-            model = ResNet50Builder(out_channels, pretrained)
+            model = ResNet50Builder(input_channels, out_channels, pretrained)
+
+        elif model_name == "resnet101":
+            model = ResNet101Builder(input_channels, out_channels, pretrained)
 
         elif model_name == "vgg16":
-            model = VGG16Builder(out_channels, pretrained)
+            model = VGG16Builder(input_channels, out_channels, pretrained)
 
         else:
             raise ValueError(f"Model {model_name} not supported.")
@@ -62,6 +61,7 @@ def build_model(model_config: dict, device: torch.device, multiprocess: bool = F
         #     model = nn.DataParallel(model)
 
         # model = model.to(device)
+        print(f"Model build as {model_name}, pretrained: {pretrained}, output channels: {out_channels}")
         return model
 
 
@@ -128,44 +128,64 @@ class ConvNetBuilder(nn.Module):
 
 class ResNet18Builder(nn.Module):
 
-    def __init__(self, output_channels: int, pretrained: bool = True):
+    def __init__(self, input_channels: int, output_channels: int, pretrained: bool = True):
         super(ResNet18Builder, self).__init__()
 
         self.resnet18 = models.resnet18(pretrained=pretrained)
-        self.resnet18.fc = nn.Linear(self.resnet18.fc.in_features, output_channels)
+
+        if input_channels != 3:
+            self.resnet18.conv1 = nn.Conv2d(input_channels, 64, kernel_size=7, stride=2, padding=3, bias=False)
+
+        if output_channels != 1000:
+            self.resnet18.fc = nn.Linear(self.resnet18.fc.in_features, output_channels)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.resnet18(x)
     
 class ResNet50Builder(nn.Module):
 
-    def __init__(self, output_channels: int, pretrained: bool = True):
+    def __init__(self, input_channels: int, output_channels: int, pretrained: bool = True):
         super(ResNet50Builder, self).__init__()
 
         self.resnet50 = models.resnet50(pretrained=pretrained)
-        self.resnet50.fc = nn.Linear(self.resnet50.fc.in_features, output_channels)
+
+        if input_channels != 3:
+            self.resnet50.conv1 = nn.Conv2d(input_channels, 64, kernel_size=7, stride=2, padding=3, bias=False)
+
+        if output_channels != 1000:
+            self.resnet50.fc = nn.Linear(self.resnet50.fc.in_features, output_channels)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.resnet50(x)
     
 class ResNet101Builder(nn.Module):
 
-    def __init__(self, output_channels: int, pretrained: bool = True):
+    def __init__(self, input_channels: int, output_channels: int, pretrained: bool = True):
         super(ResNet101Builder, self).__init__()
 
         self.resnet101 = models.resnet101(pretrained=pretrained)
-        self.resnet101.fc = nn.Linear(self.resnet101.fc.in_features, output_channels)
+
+        if input_channels != 3:
+            self.resnet101.conv1 = nn.Conv2d(input_channels, 64, kernel_size=7, stride=2, padding=3, bias=False)
+
+        if output_channels != 1000:
+            self.resnet101.fc = nn.Linear(self.resnet101.fc.in_features, output_channels)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.resnet101(x)
     
 class VGG16Builder(nn.Module):
 
-    def __init__(self, output_channels: int, pretrained: bool = True):
+    def __init__(self, input_channels: int, output_channels: int, pretrained: bool = True):
         super(VGG16Builder, self).__init__()
 
         self.vgg16 = models.vgg16(pretrained=pretrained)
-        self.vgg16.classifier[6] = nn.Linear(self.vgg16.classifier[6].in_features, output_channels)
+
+        if input_channels != 3:
+            self.vgg16.features[0] = nn.Conv2d(input_channels, 64, kernel_size=3, stride=1, padding=1)
+
+        if output_channels != 1000:
+            self.vgg16.classifier[6] = nn.Linear(self.vgg16.classifier[6].in_features, output_channels)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.vgg16(x)
