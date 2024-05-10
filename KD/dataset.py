@@ -14,16 +14,21 @@ def load_dataset(dataset, batch_size, size = None):
 
         mnist = MNISTDataLoader(batch_size)
         train_loader, test_loader = mnist.load_data()
+        print("Loaded MNIST dataset")
 
     elif dataset.lower() == "cifar10":
 
         cifar10 = CIFAR10DataLoader(batch_size)
         train_loader, test_loader = cifar10.load_data()
+        print("Loaded CIFAR10 dataset")
+
 
     elif dataset.lower() == "noise":
             
         noise = NoiseDataLoader(batch_size, size)
         train_loader, test_loader = noise.load_data()
+        print("Loaded Noise dataset")
+
 
     return train_loader, test_loader
 
@@ -61,7 +66,12 @@ class CIFAR10DataLoader(KDataLoader):
         super(CIFAR10DataLoader, self).__init__(batch_size)
 
     def load_data(self) -> Tuple[DataLoader, DataLoader]:
-        transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))])
+
+        transform = transforms.Compose([
+            transforms.Resize((224, 224)),  
+            transforms.ToTensor(), 
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])  # Normalize using ImageNet values
+        ])
 
         trainset = datasets.CIFAR10(root='./data', train=True, download=True, transform=transform)
         trainloader = DataLoader(trainset, batch_size=self.batch_size, shuffle=True)
