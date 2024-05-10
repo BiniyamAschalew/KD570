@@ -21,18 +21,24 @@ def create_model_config(
     dropout: List[float] = [0, 0],
 
     save_model: bool = False,
-    save_path: str = "./trained_models/sample_model.pth",
+    save_path: str = "",
 
     dataset: str = "MNIST",
     dataset_config_dir: str = "configs/dataset_configs",
 
-    config_file_name: str = "sample_model_config.yaml",
+    config_file_name: str = "",
     config_dir: str = "configs/model_configs"
 
     ) -> str:
 
-    model_path = f"./trained_models/{model}.pth",
+    if config_file_name == "":
+        config_file_name = f"{model}_{dataset}.yaml"
+    
+    if save_path == "":
+        save_path = f"./trained_models/{model}_{dataset}.pth"
         
+
+    model_path = f"./trained_models/{model}_{dataset}.pth"
 
     dataset_config_dir = os.path.join(dataset_config_dir, f"{dataset}.yaml")
     dataset_config = load_config(dataset_config_dir)
@@ -76,8 +82,8 @@ def create_main_config(
     multiprocess: bool = False,
 
     temperature: float = 20,
-    distillation_weight: float = 0.5,
-    ce_weight: float = 0.5,
+    distillation_weight: float = 1,
+    ce_weight: float = 0,
 
     teacher_model_config: str = "configs/model_configs/sample_model_config1.yaml",
     student_model_config: str = "configs/model_configs/sample_model_config2.yaml",
@@ -133,18 +139,21 @@ num_classes: {num_classes}"""
 
 def main():
 
-    # create_dataset_config()
-    create_model_config(config_file_name = "ResNet18_MNIST.yaml",
-                        model = "ResNet18",
-                        dataset = "MNIST",
+    # create_dataset_config(
+    #                 dataset = "CIFAR10",
+    #                 input_shape = [3, 32, 32],
+    #                 num_classes = 10,
+    # )
+    create_model_config(model = "ResNet101",
+                        dataset = "CIFAR10",
                         load_from_path = True,
-                        save_model = True,
-                        save_path = "./trained_models/ResNet18_MNIST.pth")
+                        save_model = True,)
 
-    create_main_config(config_file_name = "training_config1.yaml",
-                       epochs = 1,
-                       teacher_model_config = "configs/model_configs/ResNet18_MNIST.yaml",
-                       student_model_config = "configs/model_configs/ResNet18_MNIST.yaml")
+    create_main_config(config_file_name = "Ablation2.yaml",
+                       epochs = 2,
+                       dataset = "CIFAR10",
+                       teacher_model_config = "configs/model_configs/ResNet101_CIFAR10.yaml",
+                       student_model_config = "configs/model_configs/ResNet18_CIFAR10.yaml")
                        
 
 if __name__ == "__main__":
