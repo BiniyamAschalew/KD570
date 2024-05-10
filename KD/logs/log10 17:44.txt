@@ -1,0 +1,144 @@
+
+Teacher model successfully loaded
+
+Started Testing
+
+Accuracy of the network on the test images: 72.42%
+
+Finished Testing
+
+Teacher model accuracy: 72.42
+
+Starting Distillation Training
+
+Epoch 1/1 | Average Loss: 2.818
+
+Finished Distillation Training
+
+Started Testing
+
+Accuracy of the network on the test images: 57.59%
+
+Finished Testing
+
+Starting Distillation Training
+
+Epoch 1/1 | Average Loss: 2.865
+
+Finished Distillation Training
+
+Started Testing
+
+Accuracy of the network on the test images: 57.24%
+
+Finished Testing
+
+Starting Distillation Training
+
+Epoch 1/1 | Average Loss: 2.772
+
+Finished Distillation Training
+
+Started Testing
+
+Accuracy of the network on the test images: 58.92%
+
+Finished Testing
+
+Starting Distillation Training
+
+Epoch 1/1 | Average Loss: 2.634
+
+Finished Distillation Training
+
+Started Testing
+
+Accuracy of the network on the test images: 59.29%
+
+Finished Testing
+
+Starting Distillation Training
+
+Epoch 1/1 | Average Loss: 2.566
+
+Finished Distillation Training
+
+Started Testing
+
+Accuracy of the network on the test images: 56.65%
+
+Finished Testing
+
+Starting Distillation Training
+
+Epoch 1/1 | Average Loss: 2.512
+
+Finished Distillation Training
+
+Started Testing
+
+Accuracy of the network on the test images: 57.26%
+
+Finished Testing
+
+Starting Distillation Training
+
+Epoch 1/1 | Average Loss: 2.463
+
+Finished Distillation Training
+
+Started Testing
+
+Accuracy of the network on the test images: 55.98%
+
+Finished Testing
+
+Starting Distillation Training
+
+Epoch 1/1 | Average Loss: 2.929
+
+Finished Distillation Training
+
+Started Testing
+
+Accuracy of the network on the test images: 49.89%
+
+Finished Testing
+
+Starting Distillation Training
+
+Epoch 1/1 | Average Loss: 2.722
+
+Finished Distillation Training
+
+Started Testing
+
+Accuracy of the network on the test images: 53.05%
+
+Finished Testing
+
+Starting Distillation Training
+
+Epoch 1/1 | Average Loss: 3.011
+
+Finished Distillation Training
+
+Started Testing
+
+Accuracy of the network on the test images: 49.91%
+
+Finished Testing
+
+Starting Distillation Training
+
+Epoch 1/1 | Average Loss: 2.762
+
+Finished Distillation Training
+
+Started Testing
+
+Accuracy of the network on the test images: 59.19%
+
+Finished Testing
+
+Accuracy for temperature: [1, 11, 21, 31, 41, 51, 61, 71, 81, 91, 101] is [57.59, 57.24, 58.92, 59.29, 56.65, 57.26, 55.98, 49.89, 53.05, 49.91, 59.19]
