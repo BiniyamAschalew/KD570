@@ -16,6 +16,8 @@ def save_model(model: nn.Module, model_config: dict):
 
 def train_model(model: nn.Module, trainloader: DataLoader, epochs: int, device: torch.device, logger: object):
 
+    logger.print("Starting Training")
+
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=0.001)
     
@@ -24,6 +26,7 @@ def train_model(model: nn.Module, trainloader: DataLoader, epochs: int, device: 
 
     for epoch in range(epochs):
 
+        running_loss = 0
         epoch_loss = 0
         for i,  (inputs, labels) in enumerate(trainloader):
 
@@ -35,13 +38,14 @@ def train_model(model: nn.Module, trainloader: DataLoader, epochs: int, device: 
             loss.backward()
             optimizer.step()
 
-            epoch_loss += loss.item()
+            running_loss += loss.item()
 
             if i % 100 == 99:
-                logger.print(f'Epoch {epoch+1}/{epochs} - Loss: {epoch_loss / 100}')
+                print(f'Epoch {epoch+1}/{epochs} - Loss: {running_loss / 100}')
+                running_loss = 0.0
 
 
-        logger.print(f'Epoch {epoch+1}/{epochs} - Loss: {epoch_loss / len(trainloader)}')
+        logger.print(f'Epoch {epoch+1}/{epochs} - Loss: {running_loss / len(trainloader)}')
 
     logger.print("Finished Training")
     return model
@@ -49,6 +53,8 @@ def train_model(model: nn.Module, trainloader: DataLoader, epochs: int, device: 
 
 def train_distillation_model(teacher: nn.Module, student: nn.Module, trainloader: DataLoader,
                      device: torch.device, logger: object, config: dict) -> nn.Module:
+        
+        logger.print("Starting Distillation Training")
     
         teacher.eval()
         student.train()
@@ -91,15 +97,18 @@ def train_distillation_model(teacher: nn.Module, student: nn.Module, trainloader
                 running_loss += total_loss.item()
 
                 if j % 100 == 99:
-                    logger.print(f"Epoch {epoch + 1}/{epochs} | Iteration {j + 1}/{len(trainloader)} | Loss: {running_loss / 100:.3f}")
+                    print(f"Epoch {epoch + 1}/{epochs} | Iteration {j + 1}/{len(trainloader)} | Loss: {running_loss / 100:.3f}")
 
 
             logger.print(f"Epoch {epoch + 1}/{epochs} | Average Loss: {running_loss / len(trainloader):.3f}")
     
+        logger.print("Finished Distillation Training")
         return student 
 
 
 def test_model(model: nn.Module, testloader: DataLoader, device: torch.device, logger: object) -> float:
+
+    logger.print("Started Testing")
 
     model.eval()
     model.to(device)
@@ -116,4 +125,6 @@ def test_model(model: nn.Module, testloader: DataLoader, device: torch.device, l
 
     accuracy = 100 * correct / total
     logger.print(f'Accuracy of the network on the test images: {accuracy:.2f}%')
+
+    logger.print("Finished Testing")
     return accuracy
