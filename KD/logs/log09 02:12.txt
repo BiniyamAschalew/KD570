@@ -1,3 +1,0 @@
-Teacher model successfully loaded
-Student model successfully loaded
-Training the models

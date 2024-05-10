@@ -1,1 +1,0 @@
-Epoch 2/2 - Loss: 0.14626633587653437Finished TrainingTeacher model successfully loadedStudent model successfully loadedTraining the models
