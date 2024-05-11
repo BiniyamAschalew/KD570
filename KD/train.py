@@ -6,6 +6,8 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader, TensorDataset
 
+from utils import set_seed
+
 def save_model(model: nn.Module, model_config: dict): 
 
     if model_config["save_model"]:
@@ -15,6 +17,8 @@ def save_model(model: nn.Module, model_config: dict):
         print("Model not saved as save_model is set to False")
 
 def train_model(model: nn.Module, trainloader: DataLoader, model_config: dict, device: torch.device, logger: object):
+
+    set_seed(model_config['seed'])
 
     logger.print(f"Starting Training model {model_config['model']}")
 
@@ -62,6 +66,8 @@ def train_distillation_model(teacher: nn.Module, student: nn.Module, trainloader
                      device: torch.device, logger: object, model_config: dict) -> nn.Module:
         
         logger.print(f"Starting Distillation Training model {model_config['model']}")
+        set_seed(model_config['seed'])
+
     
         teacher.eval()
         student.train()
