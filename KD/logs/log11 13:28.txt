@@ -14,3 +14,227 @@ Training student model with temperature: 20
 Starting Distillation Training model ResNet18
 
 Distillation training with temperature: 20, distillation weight: 1, ce weight: 0
+
+Epoch 1/1 | Average Loss: 2.800
+
+Finished Distillation Training
+
+Started Testing
+
+Accuracy of the network on the test images: 59.44%
+
+Finished Testing
+
+Training student model with temperature: 22
+
+Starting Distillation Training model ResNet18
+
+Distillation training with temperature: 22, distillation weight: 1, ce weight: 0
+
+Epoch 1/1 | Average Loss: 2.702
+
+Finished Distillation Training
+
+Started Testing
+
+Accuracy of the network on the test images: 56.78%
+
+Finished Testing
+
+Training student model with temperature: 24
+
+Starting Distillation Training model ResNet18
+
+Distillation training with temperature: 24, distillation weight: 1, ce weight: 0
+
+Epoch 1/1 | Average Loss: 2.794
+
+Finished Distillation Training
+
+Started Testing
+
+Accuracy of the network on the test images: 58.37%
+
+Finished Testing
+
+Training student model with temperature: 26
+
+Starting Distillation Training model ResNet18
+
+Distillation training with temperature: 26, distillation weight: 1, ce weight: 0
+
+Epoch 1/1 | Average Loss: 2.570
+
+Finished Distillation Training
+
+Started Testing
+
+Accuracy of the network on the test images: 58.21%
+
+Finished Testing
+
+Training student model with temperature: 28
+
+Starting Distillation Training model ResNet18
+
+Distillation training with temperature: 28, distillation weight: 1, ce weight: 0
+
+Epoch 1/1 | Average Loss: 2.307
+
+Finished Distillation Training
+
+Started Testing
+
+Accuracy of the network on the test images: 58.13%
+
+Finished Testing
+
+Training student model with temperature: 30
+
+Starting Distillation Training model ResNet18
+
+Distillation training with temperature: 30, distillation weight: 1, ce weight: 0
+
+Epoch 1/1 | Average Loss: 2.502
+
+Finished Distillation Training
+
+Started Testing
+
+Accuracy of the network on the test images: 54.78%
+
+Finished Testing
+
+Training student model with temperature: 32
+
+Starting Distillation Training model ResNet18
+
+Distillation training with temperature: 32, distillation weight: 1, ce weight: 0
+
+Epoch 1/1 | Average Loss: 2.364
+
+Finished Distillation Training
+
+Started Testing
+
+Accuracy of the network on the test images: 55.72%
+
+Finished Testing
+
+Training student model with temperature: 34
+
+Starting Distillation Training model ResNet18
+
+Distillation training with temperature: 34, distillation weight: 1, ce weight: 0
+
+Epoch 1/1 | Average Loss: 2.712
+
+Finished Distillation Training
+
+Started Testing
+
+Accuracy of the network on the test images: 52.12%
+
+Finished Testing
+
+Training student model with temperature: 36
+
+Starting Distillation Training model ResNet18
+
+Distillation training with temperature: 36, distillation weight: 1, ce weight: 0
+
+Epoch 1/1 | Average Loss: 2.537
+
+Finished Distillation Training
+
+Started Testing
+
+Accuracy of the network on the test images: 52.03%
+
+Finished Testing
+
+Training student model with temperature: 38
+
+Starting Distillation Training model ResNet18
+
+Distillation training with temperature: 38, distillation weight: 1, ce weight: 0
+
+Epoch 1/1 | Average Loss: 2.770
+
+Finished Distillation Training
+
+Started Testing
+
+Accuracy of the network on the test images: 52.51%
+
+Finished Testing
+
+Training student model with temperature: 40
+
+Starting Distillation Training model ResNet18
+
+Distillation training with temperature: 40, distillation weight: 1, ce weight: 0
+
+Epoch 1/1 | Average Loss: 2.488
+
+Finished Distillation Training
+
+Started Testing
+
+Accuracy of the network on the test images: 58.93%
+
+Finished Testing
+
+Training student model with temperature: 42
+
+Starting Distillation Training model ResNet18
+
+Distillation training with temperature: 42, distillation weight: 1, ce weight: 0
+
+Epoch 1/1 | Average Loss: 2.309
+
+Finished Distillation Training
+
+Started Testing
+
+Accuracy of the network on the test images: 52.00%
+
+Finished Testing
+
+Training student model with temperature: 44
+
+Starting Distillation Training model ResNet18
+
+Distillation training with temperature: 44, distillation weight: 1, ce weight: 0
+
+Epoch 1/1 | Average Loss: 2.386
+
+Finished Distillation Training
+
+Started Testing
+
+Accuracy of the network on the test images: 63.39%
+
+Finished Testing
+
+Training student model with temperature: 46
+
+Starting Distillation Training model ResNet18
+
+Distillation training with temperature: 46, distillation weight: 1, ce weight: 0
+
+Epoch 1/1 | Average Loss: 2.555
+
+Finished Distillation Training
+
+Started Testing
+
+Accuracy of the network on the test images: 57.31%
+
+Finished Testing
+
+Training student model with temperature: 48
+
+Starting Distillation Training model ResNet18
+
+Distillation training with temperature: 48, distillation weight: 1, ce weight: 0
