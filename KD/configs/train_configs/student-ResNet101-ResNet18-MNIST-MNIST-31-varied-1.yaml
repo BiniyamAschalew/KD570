@@ -1,0 +1,17 @@
+seed: 19
+batch_size: 32
+epochs: 1
+learning_rate: 0.001
+device: cuda
+multiprocess: False
+
+temperature: 31
+distillation_weight: 1
+ce_weight: 0
+
+teacher_model_config: configs/model_configs/ResNet101_MNIST.yaml
+student_model_config: configs/model_configs/ResNet18_MNIST.yaml
+
+dataset: MNIST
+
+log_dir: ./logs/student-ResNet101-ResNet18-MNIST-MNIST-31-varied-1
