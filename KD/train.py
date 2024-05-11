@@ -14,7 +14,14 @@ def save_model(model: nn.Module, model_config: dict):
     else:
         print("Model not saved as save_model is set to False")
 
-def train_model(model: nn.Module, trainloader: DataLoader, epochs: int, learning_rate: int, device: torch.device, logger: object):
+def train_model(model: nn.Module, trainloader: DataLoader, model_config: dict, device: torch.device, logger: object):
+
+    logger.print(f"Starting Training model {model_config['model']}")
+
+    epochs = model_config['epochs']
+    learning_rate = model_config['learning_rate']
+
+    logger.print(f"Training with epochs: {epochs}, learning rate: {learning_rate}")
 
     logger.print("Starting Training")
 
@@ -52,20 +59,21 @@ def train_model(model: nn.Module, trainloader: DataLoader, epochs: int, learning
 
 
 def train_distillation_model(teacher: nn.Module, student: nn.Module, trainloader: DataLoader,
-                     device: torch.device, logger: object, config: dict) -> nn.Module:
+                     device: torch.device, logger: object, model_config: dict) -> nn.Module:
         
-        logger.print("Starting Distillation Training")
+        logger.print(f"Starting Distillation Training model {model_config['model']}")
     
         teacher.eval()
         student.train()
         teacher.to(device)
         student.to(device)
 
-        epochs = config['epochs']
-        temperature = config['temperature']
-        distillation_weight = config['distillation_weight']
-        ce_weight = config['ce_weight']
+        epochs = model_config['epochs']
+        temperature = model_config['temperature']
+        distillation_weight = model_config['distillation_weight']
+        ce_weight = model_config['ce_weight']
 
+        logger.print(f"Distillation training with temperature: {temperature}, distillation weight: {distillation_weight}, ce weight: {ce_weight}")
 
         criterion = nn.CrossEntropyLoss()
         optimizer = optim.Adam(student.parameters(), lr=0.001)

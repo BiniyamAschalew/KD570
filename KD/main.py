@@ -35,8 +35,13 @@ def main(config_dir: str):
 
     logger.print(f"Teacher model successfully loaded")
 
+    # pass every necessary parameter to a models training via the model config
+
+    teacher_config["epochs"] = EPOCHS
+    teacher_config["learning_rate"] = LEARNING_RATE
+
     if not trained:
-        train_model(teacher_model, train_loader, EPOCHS, LEARNING_RATE, device, logger)
+        train_model(teacher_model, train_loader, teacher_config, device, logger)
         if teacher_config["save_model"]:
             save_model(teacher_model, teacher_config)
         
@@ -49,6 +54,13 @@ def main(config_dir: str):
     accuracy = []
     student_config = load_config(config["student_model_config"])
 
+    student_config["epochs"] = EPOCHS
+    student_config["learning_rate"] = LEARNING_RATE
+    student_config["distillation_weight"] = config["distillation_weight"]
+    student_config["ce_weight"] = config["ce_weight"]
+
+    # lets pass every nece
+
     record = {"temperature": [], "seed": [], "accuracy": []}
     for seed in range(2):
         for temp in temperature:
@@ -58,7 +70,7 @@ def main(config_dir: str):
             student_config["temperature"] = temp
             student_model, trained = load_model(student_config, device, PARALLEL)
 
-            student_model = train_distillation_model(teacher_model, student_model, train_loader, device, logger, config)
+            student_model = train_distillation_model(teacher_model, student_model, train_loader, device, logger, student_config)
             student_acc = test_model(student_model, test_loader, device, logger)
 
             accuracy.append(student_acc)
