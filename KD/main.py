@@ -50,7 +50,7 @@ def main(config_dir: str):
     logger.print(f"Teacher model accuracy: {teacher_acc}")
 
     # ablation study on temperature
-    temperature = list(range(20, 52, 2))
+    temperature = [20, 30]       #list(range(20, 52, 2))
     accuracy = []
     student_config = load_config(config["student_model_config"])
 
@@ -62,7 +62,7 @@ def main(config_dir: str):
     # lets pass every nece
 
     record = {"temperature": [], "seed": [], "accuracy": []}
-    for seed in range(2):
+    for seed in range(3):
         for temp in temperature:
 
             logger.print(f"Training student model with temperature: {temp}")
