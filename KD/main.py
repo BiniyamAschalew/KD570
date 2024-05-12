@@ -67,6 +67,7 @@ def main(config_dir: str):
 
             logger.print(f"Training student model with temperature: {temp}")
 
+            student_config["seed"] = seed
             student_config["temperature"] = temp
             student_model, trained = load_model(student_config, device, PARALLEL)
 
@@ -79,7 +80,7 @@ def main(config_dir: str):
             record["seed"].append(seed)
             record["accuracy"].append(student_acc)
 
-        logger.print(f"Accuracy for temperature: {temperature} is {accuracy}")
+        logger.print(f"Accuracy for temperature {temperature} is {accuracy} (seed:{seed})")
 
     record = pd.DataFrame(record)
     record.to_csv("temperature_ablation.csv", index=False)
