@@ -76,13 +76,14 @@ def train_distillation_model(teacher: nn.Module, student: nn.Module, trainloader
 
         epochs = model_config['epochs']
         temperature = model_config['temperature']
+        learning_rate = model_config['learning_rate']
         distillation_weight = model_config['distillation_weight']
         ce_weight = model_config['ce_weight']
 
-        logger.print(f"Distillation training with temperature: {temperature}, distillation weight: {distillation_weight}, ce weight: {ce_weight}")
+        logger.print(f"Distillation training with temperature: {temperature}, distillation weight: {distillation_weight}, ce weight: {ce_weight}, learning rate: {learning_rate}, seed: {model_config['seed']}")
 
         criterion = nn.CrossEntropyLoss()
-        optimizer = optim.Adam(student.parameters(), lr=0.001)
+        optimizer = optim.Adam(student.parameters(), lr=learning_rate)
     
         for epoch in range(epochs):
             running_loss = 0.0
