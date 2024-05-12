@@ -9,9 +9,9 @@ temperature: 20
 distillation_weight: 1
 ce_weight: 0
 
-teacher_model_config: configs/model_configs/ResNet101_MNIST.yaml
-student_model_config: configs/model_configs/ResNet18_MNIST.yaml
+teacher_model_config: configs/model_configs/ResNet101_CIFAR10.yaml
+student_model_config: configs/model_configs/ResNet18_CIFAR10.yaml
 
-dataset: MNIST
+dataset: CIFAR10
 
 log_dir: ./logs

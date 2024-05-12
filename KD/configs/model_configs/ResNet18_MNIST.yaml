@@ -1,7 +1,7 @@
 model: ResNet18
 pretrained: False 
 load_from_path: False
-model_path: ('./trained_models/ResNet18.pth',)
+model_path: ./trained_models/ResNet18.pth'
 
 input_shape: [1, 28, 28]
 num_classes: 10

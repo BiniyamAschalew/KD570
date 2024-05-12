@@ -39,6 +39,7 @@ def main(config_dir: str):
 
     teacher_config["epochs"] = EPOCHS
     teacher_config["learning_rate"] = LEARNING_RATE
+    teacher_config["seed"] = config["seed"]
 
     if not trained:
         train_model(teacher_model, train_loader, teacher_config, device, logger)
@@ -50,9 +51,10 @@ def main(config_dir: str):
     logger.print(f"Teacher model accuracy: {teacher_acc}")
 
     # ablation study on temperature
-    temperature = [20, 30]       #list(range(20, 52, 2))
+    temperature = list(range(1, 101, 10))      #list(range(20, 52, 2))
     accuracy = []
     student_config = load_config(config["student_model_config"])
+
 
     student_config["epochs"] = EPOCHS
     student_config["learning_rate"] = LEARNING_RATE
@@ -83,7 +85,7 @@ def main(config_dir: str):
         logger.print(f"Accuracy for temperature {temperature} is {accuracy} (seed:{seed})")
 
     record = pd.DataFrame(record)
-    record.to_csv("temperature_ablation.csv", index=False)
+    logger.log_dataframe(record)
 
 
     # assert(0)

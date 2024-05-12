@@ -3,6 +3,7 @@ import torch
 import numpy 
 import random
 import yaml
+import pandas as pd
 # import logging
 
 class Logger:
@@ -20,6 +21,12 @@ class Logger:
             file.write(message)
         
         print(message)
+
+    def log_dataframe(self, dataframe):
+
+        dataframe.to_csv(self.log_dir, mode="a", header=False, index=False)
+        self.print(f"Dataframe logged at {self.log_dir}")
+        
 
 
 def load_config(config_dir):
