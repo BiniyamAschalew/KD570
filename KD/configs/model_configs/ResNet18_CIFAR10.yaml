@@ -1,7 +1,7 @@
 model: ResNet18
 pretrained: False 
 load_from_path: False
-model_path: './trained_models/ResNet18.pth'
+model_path: './trained_models/ResNet18_CIFAR10.pth'
 
 input_shape: [3, 32, 32]
 num_classes: 10
