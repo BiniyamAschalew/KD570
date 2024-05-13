@@ -91,13 +91,14 @@ class CIFAR10DataLoader(KDataLoader):
         transform = transforms.Compose([
             transforms.Resize((224, 224)),  
             transforms.ToTensor(), 
-            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])  # Normalize using ImageNet values
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),  # Normalize using ImageNet values
+            transforms.Resize((32, 32))
         ])
 
-        trainset = datasets.CIFAR10(root='./data', train=True, download=True, transform=transform)
+        trainset = datasets.CIFAR10(root='./data/CIFAR10', train=True, download=True, transform=transform)
         trainloader = DataLoader(trainset, batch_size=self.batch_size, shuffle=True)
 
-        test_dataset = datasets.CIFAR10(root='./data', train=False, download=True, transform=transform)
+        test_dataset = datasets.CIFAR10(root='./data/CIFAR10', train=False, download=True, transform=transform)
         test_loader = DataLoader(test_dataset, batch_size=self.batch_size, shuffle=False)
 
         return trainloader, test_loader
