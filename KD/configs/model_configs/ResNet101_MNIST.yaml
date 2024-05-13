@@ -1,7 +1,7 @@
 model: ResNet101
 pretrained: True 
 load_from_path: True
-model_path: ./trained_models/ResNet101.pth
+model_path: ./trained_models/ResNet101_MNIST.pth
 
 input_shape: [1, 28, 28]
 num_classes: 10
