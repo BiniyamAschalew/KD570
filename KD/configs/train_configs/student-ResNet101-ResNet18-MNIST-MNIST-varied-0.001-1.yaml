@@ -14,4 +14,4 @@ student_model_config: configs/model_configs/ResNet18_MNIST.yaml
 
 dataset: MNIST
 
-log_dir: ./logs/student-ResNet101-ResNet18-MNIST-MNIST-31-varied-1
+log_dir: ./logs/student-ResNet101-ResNet18-MNIST-MNIST-varied-0.001-1
