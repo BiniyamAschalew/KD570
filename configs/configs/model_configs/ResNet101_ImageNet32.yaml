@@ -1,0 +1,18 @@
+model: ResNet101
+pretrained: True 
+load_from_path: True
+model_path: ./trained_models/ResNet101_ImageNet32.pth
+
+input_shape: [3, 32, 32]
+num_classes: 1000
+
+size: [16, 32]
+kernel_size: [3, 3]
+stride: [1, 1]
+padding: [0, 0]
+dropout: [0, 0]
+
+dataset: ImageNet32
+
+save_model: True
+save_path: ./trained_models/ResNet101_ImageNet32.pth
