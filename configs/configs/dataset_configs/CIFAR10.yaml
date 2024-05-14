@@ -1,3 +1,0 @@
-dataset: CIFAR10
-input_shape: [3, 32, 32]
-num_classes: 10
