@@ -24,8 +24,8 @@ class Logger:
 
     def log_dataframe(self, dataframe):
 
-        dataframe.to_csv(self.log_dir, mode="a", header=False, index=False)
-        self.print(f"Dataframe logged at {self.log_dir}")
+        dataframe.to_csv(self.log_dir.replace('.txt', '.csv'), index=False)
+        self.print(f"Dataframe logged at {self.log_dir.replace('.txt', '.csv')}")
         
 
 

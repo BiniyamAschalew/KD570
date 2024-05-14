@@ -24,6 +24,7 @@ def main(config_dir: str):
     PARALLEL = config["multiprocess"]
     EPOCHS = config["epochs"]
     LEARNING_RATE = config["learning_rate"]
+    SEED = config["seed"]
 
     set_seed(config["seed"])
 
@@ -39,22 +40,21 @@ def main(config_dir: str):
 
     teacher_config["epochs"] = EPOCHS
     teacher_config["learning_rate"] = LEARNING_RATE
-    teacher_config["seed"] = config["seed"]
+    teacher_config["seed"] = SEED
 
     if not trained:
         train_model(teacher_model, train_loader, teacher_config, device, logger)
         if teacher_config["save_model"]:
             save_model(teacher_model, teacher_config)
         
-    teacher_acc = test_model(teacher_model, test_loader, device, logger)
+    teacher_acc = test_model(teacher_model, test_loader, device, logger, teacher_config)
 
     logger.print(f"Teacher model accuracy: {teacher_acc}")
 
     # ablation study on temperature
-    temperature = [1] + list(range(10, 110, 10))   # [1, 10, 20, 30, ..., 100]
+    temperature = [1] + list(range(5, 105, 5))   # [1, 10, 20, 30, ..., 100]
     accuracy = []
     student_config = load_config(config["student_model_config"])
-
 
     student_config["epochs"] = EPOCHS
     student_config["learning_rate"] = LEARNING_RATE
@@ -63,26 +63,25 @@ def main(config_dir: str):
 
     # lets pass every nece
 
-    record = {"temperature": [], "seed": [], "accuracy": []}
-    for seed in range(5):
-        for temp in temperature:
-
-            logger.print(f"Training student model with temperature: {temp}")
-
-            student_config["seed"] = seed
-            student_config["temperature"] = temp
+    record = {"temperature": [], "trial0": [], "trial1": [], "trial2": [], "trial3": [], "trial4": [], "average": []}
+    
+    for temp in temperature:
+        student_config["temperature"] = temp
+        logger.print(f"Training student model with temperature {temp}")
+        record["temperature"].append(temp)
+        accuracies = []
+        
+        for trial in range(5):
+            student_config["seed"] = trial * SEED
             student_model, trained = load_model(student_config, device, PARALLEL)
-
             student_model = train_distillation_model(teacher_model, student_model, train_loader, device, logger, student_config)
-            student_acc = test_model(student_model, test_loader, device, logger)
+            student_acc = test_model(student_model, test_loader, device, logger, student_config)
+            record[f"trial{trial}"].append(student_acc)
+            accuracies.append(student_acc)
 
-            accuracy.append(student_acc)
-
-            record["temperature"].append(temp)
-            record["seed"].append(seed)
-            record["accuracy"].append(student_acc)
-
-        logger.print(f"Accuracy for temperature {temperature} is {accuracy} (seed:{seed})")
+        accuracy.append(sum(accuracies)/5.0)
+        record["average"] = accuracy[-1]
+        logger.print(f"Accuracy for temperature {temp} is {accuracy[-1]} (trials: {accuracies})")
 
     record = pd.DataFrame(record)
     logger.log_dataframe(record)

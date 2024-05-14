@@ -24,6 +24,7 @@ def main(config_dir: str):
     PARALLEL = config["multiprocess"]
     EPOCHS = config["epochs"]
     LEARNING_RATE = config["learning_rate"]
+    SEED = config["seed"]
 
     set_seed(config["seed"])
 
@@ -39,22 +40,20 @@ def main(config_dir: str):
 
     teacher_config["epochs"] = EPOCHS
     teacher_config["learning_rate"] = LEARNING_RATE
-    teacher_config["seed"] = config["seed"]
+    teacher_config["seed"] = SEED
 
     if not trained:
         train_model(teacher_model, train_loader, teacher_config, device, logger)
         if teacher_config["save_model"]:
             save_model(teacher_model, teacher_config)
         
-    teacher_acc = test_model(teacher_model, test_loader, device, logger)
+    teacher_acc = test_model(teacher_model, test_loader, device, logger, teacher_config)
 
     logger.print(f"Teacher model accuracy: {teacher_acc}")
 
-    # ablation study on temperature
-    temperature = list(range(1, 101, 10))      #list(range(20, 52, 2))
+    temp = config["temperature"]
     accuracy = []
     student_config = load_config(config["student_model_config"])
-
 
     student_config["epochs"] = EPOCHS
     student_config["learning_rate"] = LEARNING_RATE
@@ -62,90 +61,26 @@ def main(config_dir: str):
     student_config["ce_weight"] = config["ce_weight"]
 
     # lets pass every nece
+    record = {"trial0": [], "trial1": [], "trial2": [], "trial3": [], "trial4": [], "average": []}
+    
+    student_config["temperature"] = temp
+    logger.print(f"Training student model")
+    accuracies = []
+    
+    for trial in range(5):
+        student_config["seed"] = trial * SEED
+        student_model, trained = load_model(student_config, device, PARALLEL)
+        student_model = train_distillation_model(teacher_model, student_model, train_loader, device, logger, student_config)
+        student_acc = test_model(student_model, test_loader, device, logger, student_config)
+        record[f"trial{trial}"].append(student_acc)
+        accuracies.append(student_acc)
 
-    record = {"temperature": [], "seed": [], "accuracy": []}
-    for seed in range(5):
-        for temp in temperature:
-
-            logger.print(f"Training student model with temperature: {temp}")
-
-            student_config["seed"] = seed
-            student_config["temperature"] = temp
-            student_model, trained = load_model(student_config, device, PARALLEL)
-
-            student_model = train_distillation_model(teacher_model, student_model, train_loader, device, logger, student_config)
-            student_acc = test_model(student_model, test_loader, device, logger)
-
-            accuracy.append(student_acc)
-
-            record["temperature"].append(temp)
-            record["seed"].append(seed)
-            record["accuracy"].append(student_acc)
-
-        logger.print(f"Accuracy for temperature {temperature} is {accuracy} (seed:{seed})")
+    accuracy.append(sum(accuracies)/5.0)
+    record["average"] = accuracy[-1]
+    logger.print(f"Accuracy is {accuracy[-1]} (trials: {accuracies})")
 
     record = pd.DataFrame(record)
     logger.log_dataframe(record)
-
-
-    # assert(0)
-
-    # student_config = load_config(config["student_model_config"])
-
-    # # teacher_model = nn.DataParallel(teacher_model)#.to(device)
-
-    # student_model1 = load_model(student_config, device, PARALLEL)
-    # student_model2 = load_model(student_config, device, PARALLEL)
-    
-    # ## to make the students weight identical
-    # student_model2.load_state_dict(student_model1.state_dict())
-
-    # # assert torch.norm(student_model1.module.conv_blocks.0.conv.weight - student_model2.module.conv_blocks.0.conv.weight) == 0
-    # logger.print(f"Student model successfully loaded")
-
-    # """Training the models"""
-
-    # logger.print("Training the models")
-
-    # logger.print(f"Training student 1 model: {student_config['model']}")    
-    # # student_model1 = train_model(student_model1, train_loader, EPOCHS, device, logger)
-    # # student_acc1 = test_model(student_model1, test_loader, device, logger)
-
-    # logger.print(f"Training student 2 model: {student_config['model']}")
-    # student_model2 = train_distillation_model(teacher_model, student_model2, train_loader, device, logger, config)
-    # student_acc2 = test_model(student_model2, test_loader, device, logger) 
-
-    # # if not teacher_config["load_from_path"]:
-    # #     teacher_model = train_model(teacher_model, trainloader, EPOCHS, device, logger)
-
-    # #     if teacher_config["save_path"]:
-    # #         torch.save(teacher_model.state_dict(), teacher_config["save_path"])
-    # #         logger.print(f"Teacher model saved at {teacher_config['save_path']}")
-
-
-
-    
-
-        
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 if __name__ == "__main__":
     fire.Fire(main)

@@ -24,6 +24,7 @@ def main(config_dir: str):
     PARALLEL = config["multiprocess"]
     EPOCHS = config["epochs"]
     LEARNING_RATE = config["learning_rate"]
+    SEED = config["seed"]
 
     set_seed(config["seed"])
 
@@ -39,22 +40,21 @@ def main(config_dir: str):
 
     teacher_config["epochs"] = EPOCHS
     teacher_config["learning_rate"] = LEARNING_RATE
-    teacher_config["seed"] = config["seed"]
+    teacher_config["seed"] = SEED
 
     if not trained:
         train_model(teacher_model, train_loader, teacher_config, device, logger)
         if teacher_config["save_model"]:
             save_model(teacher_model, teacher_config)
         
-    teacher_acc = test_model(teacher_model, test_loader, device, logger)
+    teacher_acc = test_model(teacher_model, test_loader, device, logger, teacher_config)
 
     logger.print(f"Teacher model accuracy: {teacher_acc}")
 
-    # ablation study on temperature
-    learning_rate = [0.0000625, 0.000125, 0.00025, 0.0005, 0.001, 0.002, 0.004, 0.008, 0.016]
+    # ablation study on learning rate
+    learning_rate = [0.0000625, 0.000125, 0.00025, 0.0005, 0.001, 0.002, 0.004, 0.008, 0.016, 0.032, 0.064, 0.128]
     accuracy = []
     student_config = load_config(config["student_model_config"])
-
 
     student_config["epochs"] = EPOCHS
     student_config["temperature"] = config["temperature"]
@@ -63,26 +63,25 @@ def main(config_dir: str):
 
     # lets pass every nece
 
-    record = {"learning_rate": [], "seed": [], "accuracy": []}
-    for seed in range(5):
-        for lr in learning_rate:
-
-            logger.print(f"Training student model with learning rate: {lr}")
-
-            student_config["seed"] = seed
-            student_config["learning_rate"] = lr
+    record = {"learning_rate": [], "trial0": [], "trial1": [], "trial2": [], "trial3": [], "trial4": [], "average": []}
+    
+    for lr in learning_rate:
+        student_config["learning_rate"] = lr
+        logger.print(f"Training student model with learning rate {lr}")
+        record["learning_rate"].append(lr)
+        accuracies = []
+        
+        for trial in range(5):
+            student_config["seed"] = trial * SEED
             student_model, trained = load_model(student_config, device, PARALLEL)
-
             student_model = train_distillation_model(teacher_model, student_model, train_loader, device, logger, student_config)
-            student_acc = test_model(student_model, test_loader, device, logger)
+            student_acc = test_model(student_model, test_loader, device, logger, student_config)
+            record[f"trial{trial}"].append(student_acc)
+            accuracies.append(student_acc)
 
-            accuracy.append(student_acc)
-
-            record["learning_rate"].append(lr)
-            record["seed"].append(seed)
-            record["accuracy"].append(student_acc)
-
-        logger.print(f"Accuracy for learning rate {lr} is {accuracy} (seed:{seed})")
+        accuracy.append(sum(accuracies)/5.0)
+        record["average"] = accuracy[-1]
+        logger.print(f"Accuracy for learning rate {lr} is {accuracy[-1]} (trials: {accuracies})")
 
     record = pd.DataFrame(record)
     logger.log_dataframe(record)

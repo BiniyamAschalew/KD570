@@ -88,12 +88,13 @@ class CIFAR10DataLoader(KDataLoader):
 
     def load_data(self) -> Tuple[DataLoader, DataLoader]:
 
-        transform = transforms.Compose([
-            transforms.Resize((224, 224)),  
-            transforms.ToTensor(), 
-            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),  # Normalize using ImageNet values
-            transforms.Resize((32, 32))
-        ])
+        transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+        # transform = transforms.Compose([
+        #     transforms.Resize((224, 224)),  
+        #     transforms.ToTensor(), 
+        #     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),  # Normalize using ImageNet values
+        #     transforms.Resize((32, 32))
+        # ])
 
         trainset = datasets.CIFAR10(root='./data/CIFAR10', train=True, download=True, transform=transform)
         trainloader = DataLoader(trainset, batch_size=self.batch_size, shuffle=True)
@@ -145,21 +146,19 @@ class ImageNetDataLoader:
         self.image_size = image_size
 
     def load_data(self):
-        
-        transform = transforms.Compose([
-            transforms.Resize((224, 224)),  
-            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),  # Normalize using ImageNet values
-            transforms.Resize((32, 32))
-        ])
+
+        # transform = transforms.Compose([
+        #     transforms.Resize((224, 224)),  
+        #     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),  # Normalize using ImageNet values
+        #     transforms.Resize((32, 32))
+        # ])
 
         trainbatch = [self._load_databatch(f'./data/ImageNet{self.image_size}/train', i) for i in range(1,11)]
         trainset = TensorDataset(torch.cat([batch['image'] for batch in trainbatch]), torch.cat([batch['label'] for batch in trainbatch]))
-        trainset = [(transform(image), label) for image, label in trainset]
         trainloader = DataLoader(trainset, batch_size=self.batch_size, shuffle=True)
 
         testbatch = [self._load_databatch(f'./data/ImageNet{self.image_size}/val', None)]
         testset = TensorDataset(torch.cat([batch['image'] for batch in testbatch]), torch.cat([batch['label'] for batch in testbatch]))
-        testset = [(transform(image), label) for image, label in testset]
         testloader = DataLoader(testset, batch_size=self.batch_size, shuffle=False)
         
         return trainloader, testloader
@@ -178,6 +177,7 @@ class ImageNetDataLoader:
 
         d = self._unpickle(data_file)
         x = d['data']/float(255)
+        x = (x - 0.5) * 2
         y = d['labels']
 
         # Labels are indexed from 1, shift it so that indexes start at 0
@@ -198,7 +198,7 @@ class ImageNetDataLoader:
         Y_train = np.concatenate((Y_train, Y_train_flip), axis=0)
         
         return dict(
-            image=torch.tensor(X_train, dtype=torch.float16), # float from 0. to 1.
+            image=torch.tensor(X_train, dtype=torch.float16), # float from -1. to +1.
             label=torch.tensor(Y_train, dtype=torch.uint8))
         
         

@@ -20,14 +20,12 @@ def train_model(model: nn.Module, trainloader: DataLoader, model_config: dict, d
 
     set_seed(model_config['seed'])
 
-    logger.print(f"Starting Training model {model_config['model']}")
+    logger.print(f"Starting training model {model_config['model']}")
 
     epochs = model_config['epochs']
     learning_rate = model_config['learning_rate']
 
     logger.print(f"Training with epochs: {epochs}, learning rate: {learning_rate}")
-
-    logger.print("Starting Training")
 
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=learning_rate)
@@ -42,6 +40,10 @@ def train_model(model: nn.Module, trainloader: DataLoader, model_config: dict, d
         for i,  (inputs, labels) in enumerate(trainloader):
 
             inputs, labels = inputs.to(device), labels.to(device)
+            
+            if "imagenet" in model_config["dataset"].lower():
+                inputs = inputs.type(torch.cuda.FloatTensor)
+                labels = labels.long()
 
             optimizer.zero_grad()
             outputs = model(inputs)
@@ -52,23 +54,22 @@ def train_model(model: nn.Module, trainloader: DataLoader, model_config: dict, d
             running_loss += loss.item()
 
             if i % 100 == 99:
-                print(f'Epoch {epoch+1}/{epochs} - Loss: {running_loss / 100}')
+                print(f'epoch {epoch+1}/{epochs} | loss: {running_loss / 100}')
                 running_loss = 0.0
 
 
-        logger.print(f'Epoch {epoch+1}/{epochs} - Loss: {running_loss / len(trainloader)}')
+        logger.print(f'epoch {epoch+1}/{epochs} | loss: {running_loss / len(trainloader)}')
 
-    logger.print("Finished Training")
+    logger.print("Finished training")
     return model
 
 
 def train_distillation_model(teacher: nn.Module, student: nn.Module, trainloader: DataLoader,
                      device: torch.device, logger: object, model_config: dict) -> nn.Module:
         
-        logger.print(f"Starting Distillation Training model {model_config['model']}")
+        logger.print(f"Starting distillation training model {model_config['model']}")
         set_seed(model_config['seed'])
 
-    
         teacher.eval()
         student.train()
         teacher.to(device)
@@ -88,9 +89,13 @@ def train_distillation_model(teacher: nn.Module, student: nn.Module, trainloader
         for epoch in range(epochs):
             running_loss = 0.0
             for j,  (inputs, labels) in enumerate(trainloader):
-
     
                 inputs, labels = inputs.to(device), labels.to(device)
+                
+                if "imagenet" in model_config["dataset"].lower():
+                    inputs = inputs.type(torch.cuda.FloatTensor)
+                    labels = labels.long()
+                
                 optimizer.zero_grad()
                 with torch.no_grad():
                     teacher_logits = teacher(inputs)
@@ -112,18 +117,18 @@ def train_distillation_model(teacher: nn.Module, student: nn.Module, trainloader
                 running_loss += total_loss.item()
 
                 if j % 100 == 99:
-                    print(f"Epoch {epoch + 1}/{epochs} | Iteration {j + 1}/{len(trainloader)} | Loss: {running_loss / 100:.3f}")
+                    print(f"epoch {epoch + 1}/{epochs} | iteration {j + 1}/{len(trainloader)} | loss: {running_loss / 100:.3f}")
 
 
-            logger.print(f"Epoch {epoch + 1}/{epochs} | Average Loss: {running_loss / len(trainloader):.3f}")
+            logger.print(f"epoch {epoch + 1}/{epochs} | average loss: {running_loss / len(trainloader):.3f}")
     
-        logger.print("Finished Distillation Training")
+        logger.print("Finished distillation training")
         return student 
 
 
-def test_model(model: nn.Module, testloader: DataLoader, device: torch.device, logger: object) -> float:
+def test_model(model: nn.Module, testloader: DataLoader, device: torch.device, logger: object, model_config: dict) -> float:
 
-    logger.print("Started Testing")
+    logger.print("Started testing")
 
     model.eval()
     model.to(device)
@@ -133,6 +138,11 @@ def test_model(model: nn.Module, testloader: DataLoader, device: torch.device, l
     with torch.no_grad():
         for inputs, labels in testloader:
             inputs, labels = inputs.to(device), labels.to(device)
+            
+            if "imagenet" in model_config["dataset"].lower():
+                inputs = inputs.type(torch.cuda.FloatTensor)
+                labels = labels.long()
+                
             outputs = model(inputs)
             _, predicted = torch.max(outputs.data, 1)
             total += labels.size(0)
@@ -141,5 +151,5 @@ def test_model(model: nn.Module, testloader: DataLoader, device: torch.device, l
     accuracy = 100 * correct / total
     logger.print(f'Accuracy of the network on the test images: {accuracy:.2f}%')
 
-    logger.print("Finished Testing")
+    logger.print("Finished testing")
     return accuracy
