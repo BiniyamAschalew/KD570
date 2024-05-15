@@ -30,6 +30,8 @@ def load_model(model_config: dict, device: torch.device, multiprocess: bool = Fa
 def build_model(model_config: dict, device: torch.device, multiprocess: bool = False) -> nn.Module:
         
         out_channels = model_config["num_classes"]
+        # print(type(out_channels))
+        # assert(0)
         pretrained = model_config["pretrained"]
         model_name = model_config["model"].lower()
 

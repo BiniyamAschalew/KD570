@@ -1,0 +1,8 @@
+
+Teacher model successfully loaded
+
+Starting Training model ResNet18
+
+Training with epochs: 1, learning rate: 0.001
+
+Starting Training
