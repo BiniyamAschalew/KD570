@@ -80,7 +80,7 @@ def main(config_dir: str):
             accuracies.append(student_acc)
 
         accuracy.append(sum(accuracies)/5.0)
-        record["average"] = accuracy[-1]
+        record["average"].append(accuracy[-1])
         logger.print(f"Accuracy for learning rate {lr} is {accuracy[-1]} (trials: {accuracies})")
 
     record = pd.DataFrame(record)
