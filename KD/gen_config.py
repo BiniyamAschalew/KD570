@@ -124,14 +124,18 @@ def create_dataset_config(
     dataset: str = "MNIST",
     input_shape: List[int] = [1, 28, 28],
     num_classes: int = 10,
-    config_dir: str = "configs/dataset_configs"
+    config_dir: str = "configs/dataset_configs",
+    mean: List[float] = [0.1307],
+    std: List[float] = [0.3081],
     ) -> str:
 
     config_file_name = f"{dataset}.yaml"
 
     dataset_config = f"""dataset: {dataset}
 input_shape: {input_shape}
-num_classes: {num_classes}"""
+num_classes: {num_classes}
+mean: {mean}
+std: {std}"""
 
     config_dir = os.path.join(config_dir, config_file_name)
     write_config(config_dir, dataset_config)
@@ -139,21 +143,24 @@ num_classes: {num_classes}"""
 
 def main():
 
-    # create_dataset_config(
-    #                 dataset = "CIFAR10",
-    #                 input_shape = [3, 32, 32],
-    #                 num_classes = 10,
-    # )
-    create_model_config(model = "ResNet101",
-                        dataset = "CIFAR10",
-                        load_from_path = True,
-                        save_model = True,)
+    create_dataset_config(
+                    dataset = "CIFAR10",
+                    input_shape = [3, 32, 32],
+                    num_classes = 10,
+                    mean = [0.1307],
+                    std = [0.3081],
+                    
+    )
+    # create_model_config(model = "ResNet101",
+    #                     dataset = "CIFAR10",
+    #                     load_from_path = True,
+    #                     save_model = True,)
 
-    create_main_config(config_file_name = "Ablation2.yaml",
-                       epochs = 2,
-                       dataset = "CIFAR10",
-                       teacher_model_config = "configs/model_configs/ResNet101_CIFAR10.yaml",
-                       student_model_config = "configs/model_configs/ResNet18_CIFAR10.yaml")
+    # create_main_config(config_file_name = "Ablation2.yaml",
+    #                    epochs = 2,
+    #                    dataset = "CIFAR10",
+    #                    teacher_model_config = "configs/model_configs/ResNet101_CIFAR10.yaml",
+    #                    student_model_config = "configs/model_configs/ResNet18_CIFAR10.yaml")
                        
 
 if __name__ == "__main__":
