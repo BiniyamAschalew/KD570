@@ -14,10 +14,12 @@ from utils import load_config
 
 
 class SyntheticGenerator():
-    def __init__(self, pretrained_model, data_config, device, logger, size_per_class, iterations=1000):
+    def __init__(self, pretrained_model, data_config, device, logger, size, iterations=1000):
+
         self.model = pretrained_model
-        self.size = size_per_class
+        self.size = size
         self.device = device
+
         self.logger = logger
         self.iterations = iterations
         self.data_config = data_config
@@ -25,25 +27,32 @@ class SyntheticGenerator():
         self.model.eval()
         self.model.to(self.device)
 
-        # Transformations, if necessary, adjust according to actual need
+        self.size_per_label = self.size // self.data_config["num_classes"]
+
+        t_mean = [0.5] * self.data_config["input_shape"][0]
+        t_std = [0.5] * self.data_config["input_shape"][0]
+
         self.transform = transforms.Compose([
             transforms.Resize(self.data_config["input_shape"][1:]),
             transforms.ToTensor(),
-            transforms.Normalize(mean=[0.485], std=[0.229])  # Adjust as per actual dataset mean/std
+            transforms.Normalize(mean = t_mean, std = t_std)
         ])
+
 
     def generate_dataset(self, batch_size=64, output_dir=None):
         data = []
         data_labels = []
 
-        iterations = self.size // batch_size
+        iterations = self.size_per_label // batch_size
+        self.logger.print(f"required to generate {self.size} images")
+        self.logger.print(f"generating {iterations * batch_size * self.data_config['num_classes']} images")
+        
+        for label in range(self.data_config["num_classes"]):
+            for _ in range(iterations):
 
-        for itr in range(iterations):
-            for label in range(self.data_config["num_classes"]):
-                for _ in range(self.size):
-                    gen_img = self.generate_batch(label, batch_size)
-                    data.append(gen_img)
-                    data_labels.append(torch.full((batch_size,), label, dtype=torch.long))
+                image_batch = self.generate_batch(label, batch_size)
+                data.append(image_batch)
+                data_labels.append(torch.full((batch_size,), label, dtype=torch.long))
 
         data = torch.cat(data)
         data_labels = torch.cat(data_labels)
@@ -90,12 +99,22 @@ class SyntheticGenerator():
 
 def visualize_image(input_image: torch.Tensor):
     input_image = input_image.cpu().detach().numpy().squeeze()
-    plt.imshow(input_image, cmap='gray')
+
+    num_channels = input_image.shape[0]
+    if num_channels == 1:
+        plt.imshow(input_image, cmap='gray')
+
+    elif num_channels == 3:
+        plt.imshow(np.transpose(input_image, (1, 2, 0)))
+
+    else: 
+        raise ValueError("Input image must have 1 or 3 channels.")
+
     plt.show()
 
 
-def main(model_config: str, dataset_config: str, size_per_class: int,
-         device: str = "cuda", output_dir: str = "./data/", save_to_dir = False, name: str = None):
+def main( model_config: str, dataset_config: str, size: int, device: str = "cuda", 
+          output_dir: str = "./data/", save_to_dir = False, name: str = None):
 
     model_config = load_config(model_config)
     dataset_config = load_config(dataset_config)
@@ -109,14 +128,15 @@ def main(model_config: str, dataset_config: str, size_per_class: int,
     if not trained:
         raise ValueError("Model must be trained.")
 
-    size_per_class = 1
-    generator = SyntheticGenerator(model, dataset_config, device, logger, size_per_class)
+    size = 100
+    generator = SyntheticGenerator(model, dataset_config, device, logger, size)
+    assert(0)
     dataloader = generator.generate_dataset(output_dir=output_dir)
 
     if save_to_dir:
         if not name:
             dataset_name = dataset_config["name"]
-            name = f"{dataset_name}_synthetic_{size_per_class}"
+            name = f"{dataset_name}_synthetic_{size}"
 
         torch.save(dataloader, f"{output_dir}/{name}.pt")
 
@@ -129,7 +149,7 @@ def main(model_config: str, dataset_config: str, size_per_class: int,
 
 
 
-if ___name__ == "__main__":
+if __name__ == "__main__":
     fire.Fire(main)
 
 
