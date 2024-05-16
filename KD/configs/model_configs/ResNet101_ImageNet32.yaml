@@ -4,7 +4,7 @@ load_from_path: True
 model_path: ./trained_models/ResNet101_ImageNet32.pth
 
 input_shape: [3, 32, 32]
-num_classes: 1000
+num_classes: 50 #1000
 
 size: [16, 32]
 kernel_size: [3, 3]
