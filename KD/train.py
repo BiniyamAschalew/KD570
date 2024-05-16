@@ -39,10 +39,7 @@ def train_model(model: nn.Module, trainloader: DataLoader, model_config: dict, d
         epoch_loss = 0
         for i,  (inputs, labels) in enumerate(trainloader):
 
-            inputs, labels = inputs.to(device), labels.to(device)
-            
-            if "imagenet" in model_config["dataset"].lower():
-                labels = labels.long()
+            inputs, labels = inputs.to(device), labels.to(device).long()
 
             optimizer.zero_grad()
             outputs = model(inputs)
@@ -89,10 +86,7 @@ def train_distillation_model(teacher: nn.Module, student: nn.Module, trainloader
             running_loss = 0.0
             for j,  (inputs, labels) in enumerate(trainloader):
     
-                inputs, labels = inputs.to(device), labels.to(device)
-                
-                if "imagenet" in model_config["dataset"].lower():
-                    labels = labels.long()
+                inputs, labels = inputs.to(device), labels.to(device).long()
                 
                 optimizer.zero_grad()
                 with torch.no_grad():
@@ -135,10 +129,7 @@ def test_model(model: nn.Module, testloader: DataLoader, device: torch.device, l
     total = 0
     with torch.no_grad():
         for inputs, labels in testloader:
-            inputs, labels = inputs.to(device), labels.to(device)
-            
-            if "imagenet" in model_config["dataset"].lower():
-                labels = labels.long()
+            inputs, labels = inputs.to(device), labels.to(device).long()
                 
             outputs = model(inputs)
             _, predicted = torch.max(outputs.data, 1)
