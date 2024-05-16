@@ -47,7 +47,7 @@ def get_device(device: str) -> torch.device:
 def get_time():
     return datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-def get_logger(log_dir):
+def get_logger(log_dir = "./logs"):
     logger = Logger(log_dir)
     return logger
 

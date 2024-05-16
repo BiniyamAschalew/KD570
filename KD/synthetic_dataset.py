@@ -1,12 +1,17 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torchvision import transforms
+
 from torch.utils.data import DataLoader, TensorDataset
+from torchvision import transforms
+
 import numpy as np
 import matplotlib.pyplot as plt
+import fire 
+
 from models import load_model
 from utils import load_config
+
 
 class SyntheticGenerator():
     def __init__(self, pretrained_model, data_config, device, logger, size_per_class, iterations=1000):
@@ -31,11 +36,14 @@ class SyntheticGenerator():
         data = []
         data_labels = []
 
-        for label in range(self.data_config["num_classes"]):
-            for _ in range(self.size):
-                gen_img = self.generate_batch(label, batch_size)
-                data.append(gen_img)
-                data_labels.append(torch.full((batch_size,), label, dtype=torch.long))
+        iterations = self.size // batch_size
+
+        for itr in range(iterations):
+            for label in range(self.data_config["num_classes"]):
+                for _ in range(self.size):
+                    gen_img = self.generate_batch(label, batch_size)
+                    data.append(gen_img)
+                    data_labels.append(torch.full((batch_size,), label, dtype=torch.long))
 
         data = torch.cat(data)
         data_labels = torch.cat(data_labels)
@@ -81,9 +89,48 @@ class SyntheticGenerator():
         return random_image
 
 def visualize_image(input_image: torch.Tensor):
-    """given a torch tensor of shape [1, 28, 28] visualize an image of the MNIST dataset"""
     input_image = input_image.cpu().detach().numpy().squeeze()
     plt.imshow(input_image, cmap='gray')
     plt.show()
+
+
+def main(model_config: str, dataset_config: str, size_per_class: int,
+         device: str = "cuda", output_dir: str = "./data/", save_to_dir = False, name: str = None):
+
+    model_config = load_config(model_config)
+    dataset_config = load_config(dataset_config)
+    device = torch.device(device)
+    logger = get_logger()
+
+    logger.print("Loading model")
+    model, trained = load_model(model_config, torch.device("cuda"))
+    logger.print(f"Model {model_config['name']} loaded, with trained status {trained}")
+    
+    if not trained:
+        raise ValueError("Model must be trained.")
+
+    size_per_class = 1
+    generator = SyntheticGenerator(model, dataset_config, device, logger, size_per_class)
+    dataloader = generator.generate_dataset(output_dir=output_dir)
+
+    if save_to_dir:
+        if not name:
+            dataset_name = dataset_config["name"]
+            name = f"{dataset_name}_synthetic_{size_per_class}"
+
+        torch.save(dataloader, f"{output_dir}/{name}.pt")
+
+    
+
+
+
+
+
+
+
+
+if ___name__ == "__main__":
+    fire.Fire(main)
+
 
 
