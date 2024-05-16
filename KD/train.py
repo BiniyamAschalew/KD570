@@ -42,7 +42,6 @@ def train_model(model: nn.Module, trainloader: DataLoader, model_config: dict, d
             inputs, labels = inputs.to(device), labels.to(device)
             
             if "imagenet" in model_config["dataset"].lower():
-                inputs = inputs.type(torch.cuda.FloatTensor)
                 labels = labels.long()
 
             optimizer.zero_grad()
@@ -93,7 +92,6 @@ def train_distillation_model(teacher: nn.Module, student: nn.Module, trainloader
                 inputs, labels = inputs.to(device), labels.to(device)
                 
                 if "imagenet" in model_config["dataset"].lower():
-                    inputs = inputs.type(torch.cuda.FloatTensor)
                     labels = labels.long()
                 
                 optimizer.zero_grad()
@@ -140,7 +138,6 @@ def test_model(model: nn.Module, testloader: DataLoader, device: torch.device, l
             inputs, labels = inputs.to(device), labels.to(device)
             
             if "imagenet" in model_config["dataset"].lower():
-                inputs = inputs.type(torch.cuda.FloatTensor)
                 labels = labels.long()
                 
             outputs = model(inputs)
