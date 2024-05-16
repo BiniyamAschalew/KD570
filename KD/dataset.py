@@ -9,6 +9,7 @@ import torch.nn as nn
 from torch.utils.data import DataLoader, TensorDataset
 from torchvision import datasets, transforms
 
+
 def load_dataset(dataset, batch_size, size = None):
     
     if dataset.lower() == "mnist":
@@ -196,9 +197,14 @@ class ImageNetDataLoader:
         X_train = np.concatenate((X_train, X_train_flip), axis=0)
         Y_train = np.concatenate((Y_train, Y_train_flip), axis=0)
         
+        # only consider cases where label is 0-49 (50 classes)
+        X_train = torch.tensor(X_train, dtype=torch.float32)
+        Y_train = torch.tensor(Y_train, dtype=torch.uint8)
+        mask = (Y_train >= 0) & (Y_train <= 49)
+        
         return dict(
-            image=torch.tensor(X_train, dtype=torch.float16), # float from -1. to +1.
-            label=torch.tensor(Y_train, dtype=torch.uint8))
+            image=X_train[mask], #torch.tensor(X_train, dtype=torch.float16), # float from -1. to +1.
+            label=Y_train[mask]) #torch.tensor(Y_train, dtype=torch.uint8))
         
         
 class SyntheticDataLoader:
@@ -252,9 +258,5 @@ class SyntheticDataLoader:
         Y_train = torch.zeros(X_train.size(0))
         
         return dict(
-            image=X_train.to(torch.float16), # float from -1.0 to 1.0
+            image=X_train.to(torch.float32), # float from -1.0 to 1.0
             label=Y_train.to(torch.uint8))   # tensor of zeros
-
-    
-    
-
