@@ -11,11 +11,22 @@ from torchvision import datasets, transforms
 
 
 def combine_dataloaders(synthetic_loader: torch.utils.data.DataLoader, real_loader: torch.utils.data.DataLoader) -> torch.utils.data.DataLoader:
-    synthetic_data = synthetic_loader.dataset.tensors[0]
-    synthetic_label = synthetic_loader.dataset.tensors[1]
     
-    real_data = real_loader.dataset.tensors[0]
-    real_label = real_loader.dataset.tensors[1]
+    def get_data_and_label(dataloader):
+        all_images = []
+        all_labels = []
+        
+        for images, labels in dataloader:
+            all_images.append(images)
+            all_labels.append(labels)
+
+        all_images = torch.cat(all_images)
+        all_labels = torch.cat(all_labels)
+        
+        return all_images, all_labels
+
+    synthetic_data, synthetic_label = get_data_and_label(synthetic_loader)
+    real_data, real_label = get_data_and_label(real_loader)
     
     data = torch.cat([synthetic_data, real_data])
     label = torch.cat([synthetic_label, real_label])
@@ -62,7 +73,7 @@ def load_dataset(dataset, batch_size, size = None):
     elif "+" in dataset.lower():    # assumes input like MNIST+CycleGAN
         model = dataset.split("+")[1]
         dataset = dataset.split("+")[0]
-        synthetic = SyntheticDataLoader(dataset, model, batch_size)
+        synthetic = SyntheticDataLoader(dataset, model, batch_size, test_loader=False)
         synthetic_loader, _ = synthetic.load_data()
 
         if dataset.lower() == "mnist":
@@ -234,8 +245,9 @@ class ImageNetDataLoader:
         
         
 class SyntheticDataLoader:
-    def __init__(self, dataset, model, batch_size):
+    def __init__(self, dataset, model, batch_size, test_loader=True):
         self.batch_size = batch_size
+        self.test_loader = test_loader
         
         if dataset.lower().strip() == 'imagenet32':
             self.dataset = 'ImageNet32'
@@ -269,29 +281,33 @@ class SyntheticDataLoader:
         trainloader = DataLoader(trainset, batch_size=self.batch_size, shuffle=True)
 
         # test split is still using real data
-        if self.dataset == 'MNIST':
-            transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))])    
-            testset = datasets.MNIST(root='./data', train=False, download=True, transform=transform)
-            testloader = DataLoader(testset, batch_size=self.batch_size, shuffle=False)
+        if self.test_loader:
+            if self.dataset == 'MNIST':
+                transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))])    
+                testset = datasets.MNIST(root='./data', train=False, download=True, transform=transform)
+                testloader = DataLoader(testset, batch_size=self.batch_size, shuffle=False)
+                
+            elif self.dataset == 'SVHN':
+                transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+                testset = datasets.SVHN(root='./data/SVHN', split='test', download=True, transform=transform)
+                testloader = DataLoader(testset, batch_size=self.batch_size, shuffle=False)
             
-        elif self.dataset == 'SVHN':
-            transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
-            testset = datasets.SVHN(root='./data/SVHN', split='test', download=True, transform=transform)
-            testloader = DataLoader(testset, batch_size=self.batch_size, shuffle=False)
-        
-        elif self.dataset == 'CIFAR10':
-            transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
-            testset = datasets.CIFAR10(root='./data/CIFAR10', train=False, download=True, transform=transform)
-            testloader = DataLoader(testset, batch_size=self.batch_size, shuffle=False)
-        
-        elif self.dataset == 'ImageNet32':
-            self.image_size = 32
-            testbatch = [self._load_databatch_imagenet(f'./data/ImageNet{self.image_size}/val', None)]
-            testset = TensorDataset(torch.cat([batch['image'] for batch in testbatch]), torch.cat([batch['label'] for batch in testbatch]))
-            testloader = DataLoader(testset, batch_size=self.batch_size, shuffle=False)
+            elif self.dataset == 'CIFAR10':
+                transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+                testset = datasets.CIFAR10(root='./data/CIFAR10', train=False, download=True, transform=transform)
+                testloader = DataLoader(testset, batch_size=self.batch_size, shuffle=False)
+            
+            elif self.dataset == 'ImageNet32':
+                self.image_size = 32
+                testbatch = [self._load_databatch_imagenet(f'./data/ImageNet{self.image_size}/val', None)]
+                testset = TensorDataset(torch.cat([batch['image'] for batch in testbatch]), torch.cat([batch['label'] for batch in testbatch]))
+                testloader = DataLoader(testset, batch_size=self.batch_size, shuffle=False)
+            
+            else:
+                raise NotImplementedError
         
         else:
-            raise NotImplementedError
+            testloader = None
 
         return trainloader, testloader
 
