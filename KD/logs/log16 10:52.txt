@@ -1,0 +1,6 @@
+
+Started testing
+
+Accuracy of the network on the test images: 9.84%
+
+Finished testing

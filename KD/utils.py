@@ -64,4 +64,18 @@ def set_seed(seed):
     torch.backends.cudnn.benchmark = False
 
     
-
+def combine_dataloaders(syntheticloader: torch.utils.data.DataLoader, realloader: torch.utils.data.DataLoader) -> torch.utils.data.DataLoader:
+    
+    synthetic_data = syntheticloader.dataset.tensors[0]
+    synthetic_labels = syntheticloader.dataset.tensors[1]
+    
+    real_data = realloader.dataset.tensors[0]
+    real_labels = realloader.dataset.tensors[1]
+    
+    data = torch.cat([synthetic_data, real_data])
+    labels = torch.cat([synthetic_labels, real_labels])
+    
+    combined_dataset = torch.utils.data.TensorDataset(data, labels)
+    combined_loader = torch.utils.data.DataLoader(combined_dataset, batch_size=syntheticloader.batch_size, shuffle=True)
+    
+    return combined_loader

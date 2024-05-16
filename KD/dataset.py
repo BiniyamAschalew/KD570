@@ -9,7 +9,6 @@ import torch.nn as nn
 from torch.utils.data import DataLoader, TensorDataset
 from torchvision import datasets, transforms
 
-
 def load_dataset(dataset, batch_size, size = None):
     
     if dataset.lower() == "mnist":
