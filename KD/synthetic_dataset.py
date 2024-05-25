@@ -28,11 +28,6 @@ class SyntheticGenerator():
         self.data_config = data_config
 
         self.model.eval()
-
-        # should use 
-        if torch.cuda.device_count() > 1:
-            self.model = nn.DataParallel(self.model)
-
         
         self.model.to(self.device)
 

@@ -11,11 +11,3 @@ generating 8 images for each of the 10 labels
 Generating images for label 0
 
 Generating a batch of 8 images
-
-Generating images for label 1
-
-Generating a batch of 8 images
-
-Generating images for label 2
-
-Generating a batch of 8 images
