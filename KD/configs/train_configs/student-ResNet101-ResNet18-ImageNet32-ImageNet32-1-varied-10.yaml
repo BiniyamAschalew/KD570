@@ -1,0 +1,17 @@
+seed: 19
+batch_size: 64
+epochs: 10
+learning_rate: 0.001
+device: cuda
+multiprocess: False
+
+temperature: 1
+distillation_weight: 1
+ce_weight: 0
+
+teacher_model_config: configs/model_configs/ResNet101_ImageNet32.yaml
+student_model_config: configs/model_configs/ResNet18_ImageNet32.yaml
+
+dataset: ImageNet32
+
+log_dir: ./logs/student-ResNet101-ResNet18-ImageNet32-ImageNet32-1-varied-10
