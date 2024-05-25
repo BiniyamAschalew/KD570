@@ -1,0 +1,64 @@
+
+Loading model
+
+Model ResNet101 loaded, with trained status True
+
+required to generate 160 number of images
+
+generating 16 images for each of the 10 labels
+
+Generating images for label 0
+
+Generating a batch of 16 images
+
+Generating images for label 1
+
+Generating a batch of 16 images
+
+Generating images for label 2
+
+Generating a batch of 16 images
+
+Generating images for label 3
+
+Generating a batch of 16 images
+
+Generating images for label 4
+
+Generating a batch of 16 images
+
+Generating images for label 5
+
+Generating a batch of 16 images
+
+Generating images for label 6
+
+Generating a batch of 16 images
+
+Generating images for label 7
+
+Generating a batch of 16 images
+
+Generating images for label 8
+
+Generating a batch of 16 images
+
+Generating images for label 9
+
+Generating a batch of 16 images
+
+required to generate 160 number of images
+
+generating 16 images for each of the 10 labels
+
+Generating images for label 0
+
+Generating a batch of 16 images
+
+Generating images for label 1
+
+Generating a batch of 16 images
+
+Generating images for label 2
+
+Generating a batch of 16 images

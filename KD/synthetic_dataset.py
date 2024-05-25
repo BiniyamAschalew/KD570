@@ -1,3 +1,4 @@
+import os
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -48,7 +49,7 @@ class SyntheticGenerator():
         num_labels = self.data_config["num_classes"]
         batch_size = self.size // num_labels
 
-        self.logger.print(f"required to generate {self.size} number of images")
+        self.logger.print(f"Generator instantiated \n In this iteration generator is required to generate {self.size} number of images")
         self.logger.print(f"generating {batch_size} images for each of the {num_labels} labels")
         
         for label in tqdm(range(num_labels)):
@@ -124,12 +125,15 @@ def visualize_image(input_image: torch.Tensor):
     plt.show()
 
 
-def generate( model_config: str, dataset_config: str, size: int, device: str = "cuda"):
+def generate( model_config: str, dataset_config: str, size: int, total_size: int, iterations: int, device: str = "cuda"):
+
 
     model_config = load_config(model_config)
     dataset_config = load_config(dataset_config)
     device = torch.device(device)
     logger = get_logger()
+
+    name = dataset_config["dataset"]
 
     logger.print("Loading model")
     model, trained = load_model(model_config, torch.device("cuda"))
@@ -138,21 +142,23 @@ def generate( model_config: str, dataset_config: str, size: int, device: str = "
     if not trained:
         raise ValueError("Model must be trained.")
 
-    generator = SyntheticGenerator(model, dataset_config, device, logger, size)
-    # assert(0)
+    print(f"Generating {total_size} images\n\n\n")
+    num_sampling = total_size // size #120
+    generator = SyntheticGenerator(model, dataset_config, device, logger, size, iterations)
 
-    num_samples = 120_000
-    n_sample = 1000
-
-    num_sampling = num_samples // n_sample #120
-    generator.size = n_sample # generator creates 1000 images
-
-    data_loader = generate_save(generator, num_sampling)
+    # the generator generates {size} number of images resulting in total of {size} * {num_sampling} = {total_size} images
+    data_loader = generate_save(generator, num_sampling, name)
 
     return data_loader
 
 
-def generate_save(generator, num_sampling):
+def generate_save(generator, num_sampling, name):
+
+    # save_dir = "./data/synthetic/MNIST/ACTIVATION/"
+    save_dir = f"./data/synthetic/{name}/ACTIVATION/"
+
+    if not os.path.exists(save_dir):
+        os.makedirs(save_dir)
 
     for i in range(num_sampling):
 
@@ -162,11 +168,18 @@ def generate_save(generator, num_sampling):
         # x_all = torch.cat([x_gen])
         x_gen = torch.clamp(x_gen, min=-1.00, max=1.00)
 
-        np.savez(f'./data/synthetic/MNIST/ACTIVATION/{i+1}_of_{num_sampling}.npz', data=x_gen.cpu().detach().numpy())
-        sub_x_gen = x_gen[:25]
-        grid = make_grid(sub_x_gen*-1 + 1, nrow=5)
-        save_image(grid,  f"./data/synthetic/MNIST/ACTIVATION/{i+1}_of_{num_sampling}.png")
-        print('saved image at ' + f"./data/synthetic/MNIST/ACTIVATION/{i+1}_of_{num_sampling}.npz")
+        # np.savez(f'./data/synthetic/MNIST/ACTIVATION/{i+1}_of_{num_sampling}.npz', data=x_gen.cpu().detach().numpy())
+        np.savez(f'{save_dir}{i+1}_of_{num_sampling}.npz', data=x_gen.cpu().detach().numpy())
+
+        # randomly select 25 to viusalize
+        random_sub_x_gen = x_gen[np.random.choice(x_gen.shape[0], 5, replace=False)]
+
+        grid = make_grid(random_sub_x_gen*-1 + 1, nrow=5)
+        # save_image(grid,  f"./data/synthetic/MNIST/ACTIVATION/{i+1}_of_{num_sampling}.png")
+        save_image(grid,  f"{save_dir}{i+1}_of_{num_sampling}.png")
+
+        # print('saved image at ' + f"./data/synthetic/MNIST/ACTIVATION/{i+1}_of_{num_sampling}.npz")
+        print('saved image at ' + f"{save_dir}{i+1}_of_{num_sampling}.npz")
 
     return data_loader
 
@@ -175,12 +188,16 @@ def generate_save(generator, num_sampling):
 def main(config_dir: str):
 
     config = load_config(config_dir)
+
     
 
     data_loader = generate( model_config= config["model_config"],
                             dataset_config=config["dataset_config"],
                             size=config["size"],
-                            device=config["device"],)
+                            total_size = config["total_size"],
+                            iterations = config["iterations"],
+                            device=config["device"],
+                            )
     
 
     # vis = 10
