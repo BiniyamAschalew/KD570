@@ -1,8 +1,11 @@
-model_config: "configs/model_configs/ResNet18_MNIST.yaml" 
-dataset_config: "configs/dataset_configs/MNIST.yaml"
+model_config: "configs/model_configs/ResNet101_CIFAR10.yaml"
+dataset_config: "configs/dataset_configs/CIFAR10.yaml"
 device: "cuda"
-size: 1000
-total_size: 120_000
+size: 80
+total_size: 80
+
+# the number of iterations for generating a single image
+iterations: 1000
 
 # didn't load the following 
 output_dir: "data/synthetic"

@@ -28,6 +28,12 @@ class SyntheticGenerator():
         self.data_config = data_config
 
         self.model.eval()
+
+        # should use 
+        if torch.cuda.device_count() > 1:
+            self.model = nn.DataParallel(self.model)
+
+        
         self.model.to(self.device)
 
         # self.size_per_label = self.size // self.data_config["num_classes"]
@@ -164,15 +170,15 @@ def generate_save(generator, num_sampling, name):
 
         data_loader = generator.generate_dataset()
 
-        x_gen, x_gen_store = data_loader.dataset.tensors
+        synthetic_data, synthetic_label = data_loader.dataset.tensors
         # x_all = torch.cat([x_gen])
-        x_gen = torch.clamp(x_gen, min=-1.00, max=1.00)
+        synthetic_data = torch.clamp(synthetic_data, min=-1.00, max=1.00)
 
         # np.savez(f'./data/synthetic/MNIST/ACTIVATION/{i+1}_of_{num_sampling}.npz', data=x_gen.cpu().detach().numpy())
-        np.savez(f'{save_dir}{i+1}_of_{num_sampling}.npz', data=x_gen.cpu().detach().numpy())
+        np.savez(f'{save_dir}{i+1}_of_{num_sampling}.npz', data=synthetic_data.cpu().detach().numpy())
 
         # randomly select 25 to viusalize
-        random_sub_x_gen = x_gen[np.random.choice(x_gen.shape[0], 5, replace=False)]
+        random_sub_x_gen = synthetic_data[np.random.choice(synthetic_data.shape[0], 5, replace=False)]
 
         grid = make_grid(random_sub_x_gen*-1 + 1, nrow=5)
         # save_image(grid,  f"./data/synthetic/MNIST/ACTIVATION/{i+1}_of_{num_sampling}.png")

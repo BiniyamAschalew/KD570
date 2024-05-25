@@ -15,15 +15,3 @@ Generating a batch of 8 images
 Generating images for label 1
 
 Generating a batch of 8 images
-
-Generating images for label 2
-
-Generating a batch of 8 images
-
-Generating images for label 3
-
-Generating a batch of 8 images
-
-Generating images for label 4
-
-Generating a batch of 8 images
