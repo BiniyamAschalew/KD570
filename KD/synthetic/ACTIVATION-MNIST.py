@@ -159,12 +159,11 @@ def generate_save(generator, num_sampling):
         data_loader = generator.generate_dataset()
 
         x_gen, x_gen_store = data_loader.dataset.tensors
-        # x_all = torch.cat([x_gen])
-        x_gen = torch.clamp(x_gen, min=-1.00, max=1.00)
+        x_all = torch.cat([x_gen])
+        x_all = torch.clamp(x_all, min=-1.00, max=1.00)
 
-        np.savez(f'./data/synthetic/MNIST/ACTIVATION/{i+1}_of_{num_sampling}.npz', data=x_gen.cpu().detach().numpy())
-        sub_x_gen = x_gen[:25]
-        grid = make_grid(sub_x_gen*-1 + 1, nrow=5)
+        np.savez(f'./data/synthetic/MNIST/ACTIVATION/{i+1}_of_{num_sampling}.npz', data=x_all.cpu().detach().numpy())
+        grid = make_grid(x_all*-1 + 1, nrow=25)
         save_image(grid,  f"./data/synthetic/MNIST/ACTIVATION/{i+1}_of_{num_sampling}.png")
         print('saved image at ' + f"./data/synthetic/MNIST/ACTIVATION/{i+1}_of_{num_sampling}.npz")
 

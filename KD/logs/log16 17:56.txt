@@ -1,0 +1,8 @@
+
+Loading model
+
+Model ResNet18 loaded, with trained status True
+
+required to generate 1000 number of images
+
+generating 960 images

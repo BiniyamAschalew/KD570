@@ -1,0 +1,6 @@
+model_config: "configs/model_configs/ResNet18_MNIST.yaml"
+dataset_config: "configs/dataset_configs/MNIST.yaml"
+device: "cuda"
+size: 1000
+output_dir: "data/synthetic"
+save_to_dir: True
