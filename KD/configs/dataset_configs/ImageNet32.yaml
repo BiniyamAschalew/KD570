@@ -1,0 +1,6 @@
+dataset: ImageNet32
+input_shape: [3, 32, 32]
+num_classes: 50
+
+mean: [0.5, 0.5, 0.5]
+std: [0.5, 0.5, 0.5]

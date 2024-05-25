@@ -1,0 +1,13 @@
+
+Loading model
+
+Model ResNet101 loaded, with trained status True
+
+Generator instantiated 
+ In this iteration generator is required to generate 500000 number of images
+
+generating 10000 images for each of the 50 labels
+
+Generating images for label 0
+
+Generating a batch of 10000 images

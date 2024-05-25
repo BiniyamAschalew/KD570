@@ -1,0 +1,12 @@
+model_config: "configs/model_configs/ResNet101_SVHN.yaml"
+dataset_config: "configs/dataset_configs/SVHN.yaml"
+device: "cuda"
+size: 1000
+total_size: 150_000
+
+# the number of iterations for generating a single image
+iterations: 1000
+
+# didn't load the following 
+output_dir: "data/synthetic"
+save_to_dir: True
