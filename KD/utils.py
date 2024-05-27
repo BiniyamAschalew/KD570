@@ -13,11 +13,14 @@ class Logger:
         current_time = datetime.datetime.now().strftime("%d %H:%M")
         self.log_dir = self.log_dir + f"/log{current_time}.txt"
 
+        with open(self.log_dir, "w") as file:
+            file.write("Begin logging\n\n")
+
 
     def print(self, message):
 
         message = "\n" + message + "\n"
-        with open(self.log_dir, "a") as file:
+        with open(self.log_dir, "wa") as file:
             file.write(message)
         
         print(message)
