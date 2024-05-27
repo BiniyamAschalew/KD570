@@ -15,3 +15,1015 @@ Generating a batch of 2000 images
 Generating images for label 1
 
 Generating a batch of 2000 images
+
+Generating images for label 2
+
+Generating a batch of 2000 images
+
+Generating images for label 3
+
+Generating a batch of 2000 images
+
+Generating images for label 4
+
+Generating a batch of 2000 images
+
+Generating images for label 5
+
+Generating a batch of 2000 images
+
+Generating images for label 6
+
+Generating a batch of 2000 images
+
+Generating images for label 7
+
+Generating a batch of 2000 images
+
+Generating images for label 8
+
+Generating a batch of 2000 images
+
+Generating images for label 9
+
+Generating a batch of 2000 images
+
+Generating images for label 10
+
+Generating a batch of 2000 images
+
+Generating images for label 11
+
+Generating a batch of 2000 images
+
+Generating images for label 12
+
+Generating a batch of 2000 images
+
+Generating images for label 13
+
+Generating a batch of 2000 images
+
+Generating images for label 14
+
+Generating a batch of 2000 images
+
+Generating images for label 15
+
+Generating a batch of 2000 images
+
+Generating images for label 16
+
+Generating a batch of 2000 images
+
+Generating images for label 17
+
+Generating a batch of 2000 images
+
+Generating images for label 18
+
+Generating a batch of 2000 images
+
+Generating images for label 19
+
+Generating a batch of 2000 images
+
+Generating images for label 20
+
+Generating a batch of 2000 images
+
+Generating images for label 21
+
+Generating a batch of 2000 images
+
+Generating images for label 22
+
+Generating a batch of 2000 images
+
+Generating images for label 23
+
+Generating a batch of 2000 images
+
+Generating images for label 24
+
+Generating a batch of 2000 images
+
+Generating images for label 25
+
+Generating a batch of 2000 images
+
+Generating images for label 26
+
+Generating a batch of 2000 images
+
+Generating images for label 27
+
+Generating a batch of 2000 images
+
+Generating images for label 28
+
+Generating a batch of 2000 images
+
+Generating images for label 29
+
+Generating a batch of 2000 images
+
+Generating images for label 30
+
+Generating a batch of 2000 images
+
+Generating images for label 31
+
+Generating a batch of 2000 images
+
+Generating images for label 32
+
+Generating a batch of 2000 images
+
+Generating images for label 33
+
+Generating a batch of 2000 images
+
+Generating images for label 34
+
+Generating a batch of 2000 images
+
+Generating images for label 35
+
+Generating a batch of 2000 images
+
+Generating images for label 36
+
+Generating a batch of 2000 images
+
+Generating images for label 37
+
+Generating a batch of 2000 images
+
+Generating images for label 38
+
+Generating a batch of 2000 images
+
+Generating images for label 39
+
+Generating a batch of 2000 images
+
+Generating images for label 40
+
+Generating a batch of 2000 images
+
+Generating images for label 41
+
+Generating a batch of 2000 images
+
+Generating images for label 42
+
+Generating a batch of 2000 images
+
+Generating images for label 43
+
+Generating a batch of 2000 images
+
+Generating images for label 44
+
+Generating a batch of 2000 images
+
+Generating images for label 45
+
+Generating a batch of 2000 images
+
+Generating images for label 46
+
+Generating a batch of 2000 images
+
+Generating images for label 47
+
+Generating a batch of 2000 images
+
+Generating images for label 48
+
+Generating a batch of 2000 images
+
+Generating images for label 49
+
+Generating a batch of 2000 images
+
+Generator instantiated 
+ In this iteration generator is required to generate 100000 number of images
+
+generating 2000 images for each of the 50 labels
+
+Generating images for label 0
+
+Generating a batch of 2000 images
+
+Generating images for label 1
+
+Generating a batch of 2000 images
+
+Generating images for label 2
+
+Generating a batch of 2000 images
+
+Generating images for label 3
+
+Generating a batch of 2000 images
+
+Generating images for label 4
+
+Generating a batch of 2000 images
+
+Generating images for label 5
+
+Generating a batch of 2000 images
+
+Generating images for label 6
+
+Generating a batch of 2000 images
+
+Generating images for label 7
+
+Generating a batch of 2000 images
+
+Generating images for label 8
+
+Generating a batch of 2000 images
+
+Generating images for label 9
+
+Generating a batch of 2000 images
+
+Generating images for label 10
+
+Generating a batch of 2000 images
+
+Generating images for label 11
+
+Generating a batch of 2000 images
+
+Generating images for label 12
+
+Generating a batch of 2000 images
+
+Generating images for label 13
+
+Generating a batch of 2000 images
+
+Generating images for label 14
+
+Generating a batch of 2000 images
+
+Generating images for label 15
+
+Generating a batch of 2000 images
+
+Generating images for label 16
+
+Generating a batch of 2000 images
+
+Generating images for label 17
+
+Generating a batch of 2000 images
+
+Generating images for label 18
+
+Generating a batch of 2000 images
+
+Generating images for label 19
+
+Generating a batch of 2000 images
+
+Generating images for label 20
+
+Generating a batch of 2000 images
+
+Generating images for label 21
+
+Generating a batch of 2000 images
+
+Generating images for label 22
+
+Generating a batch of 2000 images
+
+Generating images for label 23
+
+Generating a batch of 2000 images
+
+Generating images for label 24
+
+Generating a batch of 2000 images
+
+Generating images for label 25
+
+Generating a batch of 2000 images
+
+Generating images for label 26
+
+Generating a batch of 2000 images
+
+Generating images for label 27
+
+Generating a batch of 2000 images
+
+Generating images for label 28
+
+Generating a batch of 2000 images
+
+Generating images for label 29
+
+Generating a batch of 2000 images
+
+Generating images for label 30
+
+Generating a batch of 2000 images
+
+Generating images for label 31
+
+Generating a batch of 2000 images
+
+Generating images for label 32
+
+Generating a batch of 2000 images
+
+Generating images for label 33
+
+Generating a batch of 2000 images
+
+Generating images for label 34
+
+Generating a batch of 2000 images
+
+Generating images for label 35
+
+Generating a batch of 2000 images
+
+Generating images for label 36
+
+Generating a batch of 2000 images
+
+Generating images for label 37
+
+Generating a batch of 2000 images
+
+Generating images for label 38
+
+Generating a batch of 2000 images
+
+Generating images for label 39
+
+Generating a batch of 2000 images
+
+Generating images for label 40
+
+Generating a batch of 2000 images
+
+Generating images for label 41
+
+Generating a batch of 2000 images
+
+Generating images for label 42
+
+Generating a batch of 2000 images
+
+Generating images for label 43
+
+Generating a batch of 2000 images
+
+Generating images for label 44
+
+Generating a batch of 2000 images
+
+Generating images for label 45
+
+Generating a batch of 2000 images
+
+Generating images for label 46
+
+Generating a batch of 2000 images
+
+Generating images for label 47
+
+Generating a batch of 2000 images
+
+Generating images for label 48
+
+Generating a batch of 2000 images
+
+Generating images for label 49
+
+Generating a batch of 2000 images
+
+Generator instantiated 
+ In this iteration generator is required to generate 100000 number of images
+
+generating 2000 images for each of the 50 labels
+
+Generating images for label 0
+
+Generating a batch of 2000 images
+
+Generating images for label 1
+
+Generating a batch of 2000 images
+
+Generating images for label 2
+
+Generating a batch of 2000 images
+
+Generating images for label 3
+
+Generating a batch of 2000 images
+
+Generating images for label 4
+
+Generating a batch of 2000 images
+
+Generating images for label 5
+
+Generating a batch of 2000 images
+
+Generating images for label 6
+
+Generating a batch of 2000 images
+
+Generating images for label 7
+
+Generating a batch of 2000 images
+
+Generating images for label 8
+
+Generating a batch of 2000 images
+
+Generating images for label 9
+
+Generating a batch of 2000 images
+
+Generating images for label 10
+
+Generating a batch of 2000 images
+
+Generating images for label 11
+
+Generating a batch of 2000 images
+
+Generating images for label 12
+
+Generating a batch of 2000 images
+
+Generating images for label 13
+
+Generating a batch of 2000 images
+
+Generating images for label 14
+
+Generating a batch of 2000 images
+
+Generating images for label 15
+
+Generating a batch of 2000 images
+
+Generating images for label 16
+
+Generating a batch of 2000 images
+
+Generating images for label 17
+
+Generating a batch of 2000 images
+
+Generating images for label 18
+
+Generating a batch of 2000 images
+
+Generating images for label 19
+
+Generating a batch of 2000 images
+
+Generating images for label 20
+
+Generating a batch of 2000 images
+
+Generating images for label 21
+
+Generating a batch of 2000 images
+
+Generating images for label 22
+
+Generating a batch of 2000 images
+
+Generating images for label 23
+
+Generating a batch of 2000 images
+
+Generating images for label 24
+
+Generating a batch of 2000 images
+
+Generating images for label 25
+
+Generating a batch of 2000 images
+
+Generating images for label 26
+
+Generating a batch of 2000 images
+
+Generating images for label 27
+
+Generating a batch of 2000 images
+
+Generating images for label 28
+
+Generating a batch of 2000 images
+
+Generating images for label 29
+
+Generating a batch of 2000 images
+
+Generating images for label 30
+
+Generating a batch of 2000 images
+
+Generating images for label 31
+
+Generating a batch of 2000 images
+
+Generating images for label 32
+
+Generating a batch of 2000 images
+
+Generating images for label 33
+
+Generating a batch of 2000 images
+
+Generating images for label 34
+
+Generating a batch of 2000 images
+
+Generating images for label 35
+
+Generating a batch of 2000 images
+
+Generating images for label 36
+
+Generating a batch of 2000 images
+
+Generating images for label 37
+
+Generating a batch of 2000 images
+
+Generating images for label 38
+
+Generating a batch of 2000 images
+
+Generating images for label 39
+
+Generating a batch of 2000 images
+
+Generating images for label 40
+
+Generating a batch of 2000 images
+
+Generating images for label 41
+
+Generating a batch of 2000 images
+
+Generating images for label 42
+
+Generating a batch of 2000 images
+
+Generating images for label 43
+
+Generating a batch of 2000 images
+
+Generating images for label 44
+
+Generating a batch of 2000 images
+
+Generating images for label 45
+
+Generating a batch of 2000 images
+
+Generating images for label 46
+
+Generating a batch of 2000 images
+
+Generating images for label 47
+
+Generating a batch of 2000 images
+
+Generating images for label 48
+
+Generating a batch of 2000 images
+
+Generating images for label 49
+
+Generating a batch of 2000 images
+
+Generator instantiated 
+ In this iteration generator is required to generate 100000 number of images
+
+generating 2000 images for each of the 50 labels
+
+Generating images for label 0
+
+Generating a batch of 2000 images
+
+Generating images for label 1
+
+Generating a batch of 2000 images
+
+Generating images for label 2
+
+Generating a batch of 2000 images
+
+Generating images for label 3
+
+Generating a batch of 2000 images
+
+Generating images for label 4
+
+Generating a batch of 2000 images
+
+Generating images for label 5
+
+Generating a batch of 2000 images
+
+Generating images for label 6
+
+Generating a batch of 2000 images
+
+Generating images for label 7
+
+Generating a batch of 2000 images
+
+Generating images for label 8
+
+Generating a batch of 2000 images
+
+Generating images for label 9
+
+Generating a batch of 2000 images
+
+Generating images for label 10
+
+Generating a batch of 2000 images
+
+Generating images for label 11
+
+Generating a batch of 2000 images
+
+Generating images for label 12
+
+Generating a batch of 2000 images
+
+Generating images for label 13
+
+Generating a batch of 2000 images
+
+Generating images for label 14
+
+Generating a batch of 2000 images
+
+Generating images for label 15
+
+Generating a batch of 2000 images
+
+Generating images for label 16
+
+Generating a batch of 2000 images
+
+Generating images for label 17
+
+Generating a batch of 2000 images
+
+Generating images for label 18
+
+Generating a batch of 2000 images
+
+Generating images for label 19
+
+Generating a batch of 2000 images
+
+Generating images for label 20
+
+Generating a batch of 2000 images
+
+Generating images for label 21
+
+Generating a batch of 2000 images
+
+Generating images for label 22
+
+Generating a batch of 2000 images
+
+Generating images for label 23
+
+Generating a batch of 2000 images
+
+Generating images for label 24
+
+Generating a batch of 2000 images
+
+Generating images for label 25
+
+Generating a batch of 2000 images
+
+Generating images for label 26
+
+Generating a batch of 2000 images
+
+Generating images for label 27
+
+Generating a batch of 2000 images
+
+Generating images for label 28
+
+Generating a batch of 2000 images
+
+Generating images for label 29
+
+Generating a batch of 2000 images
+
+Generating images for label 30
+
+Generating a batch of 2000 images
+
+Generating images for label 31
+
+Generating a batch of 2000 images
+
+Generating images for label 32
+
+Generating a batch of 2000 images
+
+Generating images for label 33
+
+Generating a batch of 2000 images
+
+Generating images for label 34
+
+Generating a batch of 2000 images
+
+Generating images for label 35
+
+Generating a batch of 2000 images
+
+Generating images for label 36
+
+Generating a batch of 2000 images
+
+Generating images for label 37
+
+Generating a batch of 2000 images
+
+Generating images for label 38
+
+Generating a batch of 2000 images
+
+Generating images for label 39
+
+Generating a batch of 2000 images
+
+Generating images for label 40
+
+Generating a batch of 2000 images
+
+Generating images for label 41
+
+Generating a batch of 2000 images
+
+Generating images for label 42
+
+Generating a batch of 2000 images
+
+Generating images for label 43
+
+Generating a batch of 2000 images
+
+Generating images for label 44
+
+Generating a batch of 2000 images
+
+Generating images for label 45
+
+Generating a batch of 2000 images
+
+Generating images for label 46
+
+Generating a batch of 2000 images
+
+Generating images for label 47
+
+Generating a batch of 2000 images
+
+Generating images for label 48
+
+Generating a batch of 2000 images
+
+Generating images for label 49
+
+Generating a batch of 2000 images
+
+Generator instantiated 
+ In this iteration generator is required to generate 100000 number of images
+
+generating 2000 images for each of the 50 labels
+
+Generating images for label 0
+
+Generating a batch of 2000 images
+
+Generating images for label 1
+
+Generating a batch of 2000 images
+
+Generating images for label 2
+
+Generating a batch of 2000 images
+
+Generating images for label 3
+
+Generating a batch of 2000 images
+
+Generating images for label 4
+
+Generating a batch of 2000 images
+
+Generating images for label 5
+
+Generating a batch of 2000 images
+
+Generating images for label 6
+
+Generating a batch of 2000 images
+
+Generating images for label 7
+
+Generating a batch of 2000 images
+
+Generating images for label 8
+
+Generating a batch of 2000 images
+
+Generating images for label 9
+
+Generating a batch of 2000 images
+
+Generating images for label 10
+
+Generating a batch of 2000 images
+
+Generating images for label 11
+
+Generating a batch of 2000 images
+
+Generating images for label 12
+
+Generating a batch of 2000 images
+
+Generating images for label 13
+
+Generating a batch of 2000 images
+
+Generating images for label 14
+
+Generating a batch of 2000 images
+
+Generating images for label 15
+
+Generating a batch of 2000 images
+
+Generating images for label 16
+
+Generating a batch of 2000 images
+
+Generating images for label 17
+
+Generating a batch of 2000 images
+
+Generating images for label 18
+
+Generating a batch of 2000 images
+
+Generating images for label 19
+
+Generating a batch of 2000 images
+
+Generating images for label 20
+
+Generating a batch of 2000 images
+
+Generating images for label 21
+
+Generating a batch of 2000 images
+
+Generating images for label 22
+
+Generating a batch of 2000 images
+
+Generating images for label 23
+
+Generating a batch of 2000 images
+
+Generating images for label 24
+
+Generating a batch of 2000 images
+
+Generating images for label 25
+
+Generating a batch of 2000 images
+
+Generating images for label 26
+
+Generating a batch of 2000 images
+
+Generating images for label 27
+
+Generating a batch of 2000 images
+
+Generating images for label 28
+
+Generating a batch of 2000 images
+
+Generating images for label 29
+
+Generating a batch of 2000 images
+
+Generating images for label 30
+
+Generating a batch of 2000 images
+
+Generating images for label 31
+
+Generating a batch of 2000 images
+
+Generating images for label 32
+
+Generating a batch of 2000 images
+
+Generating images for label 33
+
+Generating a batch of 2000 images
+
+Generating images for label 34
+
+Generating a batch of 2000 images
+
+Generating images for label 35
+
+Generating a batch of 2000 images
+
+Generating images for label 36
+
+Generating a batch of 2000 images
+
+Generating images for label 37
+
+Generating a batch of 2000 images
+
+Generating images for label 38
+
+Generating a batch of 2000 images
+
+Generating images for label 39
+
+Generating a batch of 2000 images
+
+Generating images for label 40
+
+Generating a batch of 2000 images
+
+Generating images for label 41
+
+Generating a batch of 2000 images
+
+Generating images for label 42
+
+Generating a batch of 2000 images
+
+Generating images for label 43
+
+Generating a batch of 2000 images
+
+Generating images for label 44
+
+Generating a batch of 2000 images
+
+Generating images for label 45
+
+Generating a batch of 2000 images
+
+Generating images for label 46
+
+Generating a batch of 2000 images
+
+Generating images for label 47
+
+Generating a batch of 2000 images
+
+Generating images for label 48
+
+Generating a batch of 2000 images
+
+Generating images for label 49
+
+Generating a batch of 2000 images
