@@ -1,7 +1,7 @@
 seed: 19
 batch_size: 64
 epochs: 1
-learning_rate: 0.002
+learning_rate: 0.001
 device: cuda
 multiprocess: False
 
