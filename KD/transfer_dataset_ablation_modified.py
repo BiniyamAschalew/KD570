@@ -53,6 +53,9 @@ def main(config_dir: str):
 
     # ablation study on transfer dataset
     transfer_dataset = ["MNIST/Noise", "MNIST/ActMax", "MNIST+Noise", "MNIST+ActMax"]
+
+    # transfer_dataset = ["MNIST/Noise+ActMax"]
+
     accuracy = []
     student_config = load_config(config["student_model_config"])
 

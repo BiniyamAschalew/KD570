@@ -1,0 +1,12 @@
+Begin logging
+
+
+Teacher model successfully loaded
+
+Started testing
+
+Accuracy of the network on the test images: 97.71%
+
+Finished testing
+
+Teacher model accuracy: 97.71

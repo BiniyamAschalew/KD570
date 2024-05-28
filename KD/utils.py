@@ -20,7 +20,7 @@ class Logger:
     def print(self, message):
 
         message = "\n" + message + "\n"
-        with open(self.log_dir, "wa") as file:
+        with open(self.log_dir, "a") as file:
             file.write(message)
         
         print(message)

@@ -1,8 +1,8 @@
 model_config: "configs/model_configs/ResNet101_MNIST.yaml" 
 dataset_config: "configs/dataset_configs/MNIST.yaml"
 device: "cuda"
-size: 80
-total_size: 80
+size: 1000
+total_size: 120_000
 
 # the number of iterations for generating a single image
 iterations: 10000

@@ -1,0 +1,310 @@
+Begin logging
+
+
+Teacher model successfully loaded
+
+Started testing
+
+Accuracy of the network on the test images: 97.71%
+
+Finished testing
+
+Teacher model accuracy: 97.71
+
+Training student model with transfer dataset MNIST/Noise
+
+Starting distillation training model ResNet18
+
+Distillation training with temperature: 5, distillation weight: 1, ce weight: 0, learning rate: 0.002, seed: 0
+
+epoch 1/1 | average loss: 0.058
+
+Finished distillation training
+
+Started testing
+
+Accuracy of the network on the test images: 10.09%
+
+Finished testing
+
+Starting distillation training model ResNet18
+
+Distillation training with temperature: 5, distillation weight: 1, ce weight: 0, learning rate: 0.002, seed: 19
+
+epoch 1/1 | average loss: 0.060
+
+Finished distillation training
+
+Started testing
+
+Accuracy of the network on the test images: 11.35%
+
+Finished testing
+
+Starting distillation training model ResNet18
+
+Distillation training with temperature: 5, distillation weight: 1, ce weight: 0, learning rate: 0.002, seed: 38
+
+epoch 1/1 | average loss: 0.057
+
+Finished distillation training
+
+Started testing
+
+Accuracy of the network on the test images: 11.39%
+
+Finished testing
+
+Starting distillation training model ResNet18
+
+Distillation training with temperature: 5, distillation weight: 1, ce weight: 0, learning rate: 0.002, seed: 57
+
+epoch 1/1 | average loss: 0.053
+
+Finished distillation training
+
+Started testing
+
+Accuracy of the network on the test images: 11.37%
+
+Finished testing
+
+Starting distillation training model ResNet18
+
+Distillation training with temperature: 5, distillation weight: 1, ce weight: 0, learning rate: 0.002, seed: 76
+
+epoch 1/1 | average loss: 0.058
+
+Finished distillation training
+
+Started testing
+
+Accuracy of the network on the test images: 6.56%
+
+Finished testing
+
+Accuracy for transfer dataset MNIST/Noise is 10.152 (trials: [10.09, 11.35, 11.39, 11.37, 6.56])
+
+Training student model with transfer dataset MNIST/ActMax
+
+Starting distillation training model ResNet18
+
+Distillation training with temperature: 5, distillation weight: 1, ce weight: 0, learning rate: 0.002, seed: 0
+
+epoch 1/1 | average loss: 0.085
+
+Finished distillation training
+
+Started testing
+
+Accuracy of the network on the test images: 19.28%
+
+Finished testing
+
+Starting distillation training model ResNet18
+
+Distillation training with temperature: 5, distillation weight: 1, ce weight: 0, learning rate: 0.002, seed: 19
+
+epoch 1/1 | average loss: 0.083
+
+Finished distillation training
+
+Started testing
+
+Accuracy of the network on the test images: 41.28%
+
+Finished testing
+
+Starting distillation training model ResNet18
+
+Distillation training with temperature: 5, distillation weight: 1, ce weight: 0, learning rate: 0.002, seed: 38
+
+epoch 1/1 | average loss: 0.088
+
+Finished distillation training
+
+Started testing
+
+Accuracy of the network on the test images: 35.16%
+
+Finished testing
+
+Starting distillation training model ResNet18
+
+Distillation training with temperature: 5, distillation weight: 1, ce weight: 0, learning rate: 0.002, seed: 57
+
+epoch 1/1 | average loss: 0.087
+
+Finished distillation training
+
+Started testing
+
+Accuracy of the network on the test images: 10.73%
+
+Finished testing
+
+Starting distillation training model ResNet18
+
+Distillation training with temperature: 5, distillation weight: 1, ce weight: 0, learning rate: 0.002, seed: 76
+
+epoch 1/1 | average loss: 0.087
+
+Finished distillation training
+
+Started testing
+
+Accuracy of the network on the test images: 19.81%
+
+Finished testing
+
+Accuracy for transfer dataset MNIST/ActMax is 25.252000000000002 (trials: [19.28, 41.28, 35.16, 10.73, 19.81])
+
+Training student model with transfer dataset MNIST+Noise
+
+Starting distillation training model ResNet18
+
+Distillation training with temperature: 5, distillation weight: 1, ce weight: 0, learning rate: 0.002, seed: 0
+
+epoch 1/1 | average loss: nan
+
+Finished distillation training
+
+Started testing
+
+Accuracy of the network on the test images: 98.34%
+
+Finished testing
+
+Starting distillation training model ResNet18
+
+Distillation training with temperature: 5, distillation weight: 1, ce weight: 0, learning rate: 0.002, seed: 19
+
+epoch 1/1 | average loss: nan
+
+Finished distillation training
+
+Started testing
+
+Accuracy of the network on the test images: 97.92%
+
+Finished testing
+
+Starting distillation training model ResNet18
+
+Distillation training with temperature: 5, distillation weight: 1, ce weight: 0, learning rate: 0.002, seed: 38
+
+epoch 1/1 | average loss: nan
+
+Finished distillation training
+
+Started testing
+
+Accuracy of the network on the test images: 97.63%
+
+Finished testing
+
+Starting distillation training model ResNet18
+
+Distillation training with temperature: 5, distillation weight: 1, ce weight: 0, learning rate: 0.002, seed: 57
+
+epoch 1/1 | average loss: nan
+
+Finished distillation training
+
+Started testing
+
+Accuracy of the network on the test images: 97.75%
+
+Finished testing
+
+Starting distillation training model ResNet18
+
+Distillation training with temperature: 5, distillation weight: 1, ce weight: 0, learning rate: 0.002, seed: 76
+
+epoch 1/1 | average loss: nan
+
+Finished distillation training
+
+Started testing
+
+Accuracy of the network on the test images: 97.48%
+
+Finished testing
+
+Accuracy for transfer dataset MNIST+Noise is 97.824 (trials: [98.34, 97.92, 97.63, 97.75, 97.48])
+
+Training student model with transfer dataset MNIST+ActMax
+
+Starting distillation training model ResNet18
+
+Distillation training with temperature: 5, distillation weight: 1, ce weight: 0, learning rate: 0.002, seed: 0
+
+epoch 1/1 | average loss: nan
+
+Finished distillation training
+
+Started testing
+
+Accuracy of the network on the test images: 98.17%
+
+Finished testing
+
+Starting distillation training model ResNet18
+
+Distillation training with temperature: 5, distillation weight: 1, ce weight: 0, learning rate: 0.002, seed: 19
+
+epoch 1/1 | average loss: nan
+
+Finished distillation training
+
+Started testing
+
+Accuracy of the network on the test images: 97.99%
+
+Finished testing
+
+Starting distillation training model ResNet18
+
+Distillation training with temperature: 5, distillation weight: 1, ce weight: 0, learning rate: 0.002, seed: 38
+
+epoch 1/1 | average loss: nan
+
+Finished distillation training
+
+Started testing
+
+Accuracy of the network on the test images: 97.14%
+
+Finished testing
+
+Starting distillation training model ResNet18
+
+Distillation training with temperature: 5, distillation weight: 1, ce weight: 0, learning rate: 0.002, seed: 57
+
+epoch 1/1 | average loss: nan
+
+Finished distillation training
+
+Started testing
+
+Accuracy of the network on the test images: 97.79%
+
+Finished testing
+
+Starting distillation training model ResNet18
+
+Distillation training with temperature: 5, distillation weight: 1, ce weight: 0, learning rate: 0.002, seed: 76
+
+epoch 1/1 | average loss: nan
+
+Finished distillation training
+
+Started testing
+
+Accuracy of the network on the test images: 97.57%
+
+Finished testing
+
+Accuracy for transfer dataset MNIST+ActMax is 97.732 (trials: [98.17, 97.99, 97.14, 97.79, 97.57])
+
+Dataframe logged at ./logs/student-ResNet101-ResNet18-MNIST-MNIST-5-varied-1/log28 01:14.csv
