@@ -248,15 +248,20 @@ class SyntheticDataLoader:
     def __init__(self, dataset, model, batch_size, test_loader=True):
         self.batch_size = batch_size
         self.test_loader = test_loader
+        self.end = 120
         
         if dataset.lower().strip() == 'imagenet32':
             self.dataset = 'ImageNet32'
+            self.end = 5
         elif dataset.lower().strip() == 'mnist':
             self.dataset = 'MNIST'
+            self.end = 120
         elif dataset.lower().strip() == 'cifar10':
             self.dataset = 'CIFAR10'
+            self.end = 100
         elif dataset.lower().strip() == 'svhn':
             self.dataset = 'SVHN'
+            self.end = 150
         else:
             raise NotImplementedError
         
@@ -264,6 +269,8 @@ class SyntheticDataLoader:
             self.model = 'DDPM'
         elif model.lower().strip() == 'cyclegan':
             self.model = 'CycleGAN'
+            if self.dataset == 'SVHN':
+                self.end = 120
         elif model.lower().strip() == 'noise':
             self.model = 'Noise'
         elif model.lower().strip() == 'actmax':
@@ -276,7 +283,7 @@ class SyntheticDataLoader:
             raise NotImplementedError
 
     def load_data(self):
-        trainbatch = [self._load_databatch(f'./data/synthetic/{self.dataset}/{self.model}/{i}_of_120.npz') for i in range(1,121)]
+        trainbatch = [self._load_databatch(f'./data/synthetic/{self.dataset}/{self.model}/{i}_of_{self.end}.npz') for i in range(1,(self.end+1))]
         trainset = TensorDataset(torch.cat([batch['image'] for batch in trainbatch]), torch.cat([batch['label'] for batch in trainbatch]))
         trainloader = DataLoader(trainset, batch_size=self.batch_size, shuffle=True)
 
@@ -321,6 +328,12 @@ class SyntheticDataLoader:
             image=X_train.to(torch.float32), # float from -1.0 to 1.0
             label=Y_train.to(torch.uint8))   # tensor of zeros
 
+    # Note that this will work with Python3
+    def _unpickle(self, file):
+        with open(file, 'rb') as fo:
+            dict = pickle.load(fo)
+        return dict
+        
     def _load_databatch_imagenet(self, data_folder, idx):
         if idx is not None:
             data_file = os.path.join(data_folder, f'train_data_batch_{idx}')

@@ -1,0 +1,17 @@
+seed: 19
+batch_size: 64
+epochs: 1
+learning_rate: 0.001
+device: cuda
+multiprocess: False
+
+temperature: 5
+distillation_weight: 1
+ce_weight: 0
+
+teacher_model_config: configs/model_configs/ResNet101_SVHN.yaml
+student_model_config: configs/model_configs/ResNet18_SVHN.yaml
+
+dataset: SVHN
+
+log_dir: ./logs/student-ResNet101-ResNet18-SVHN-varied-5-0.001-1
