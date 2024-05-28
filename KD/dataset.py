@@ -328,6 +328,12 @@ class SyntheticDataLoader:
             image=X_train.to(torch.float32), # float from -1.0 to 1.0
             label=Y_train.to(torch.uint8))   # tensor of zeros
 
+    # Note that this will work with Python3
+    def _unpickle(self, file):
+        with open(file, 'rb') as fo:
+            dict = pickle.load(fo)
+        return dict
+        
     def _load_databatch_imagenet(self, data_folder, idx):
         if idx is not None:
             data_file = os.path.join(data_folder, f'train_data_batch_{idx}')
