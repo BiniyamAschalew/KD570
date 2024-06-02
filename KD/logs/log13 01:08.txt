@@ -1,2 +1,0 @@
-
-Teacher model successfully loaded
