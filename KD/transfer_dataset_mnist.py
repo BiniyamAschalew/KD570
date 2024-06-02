@@ -52,7 +52,7 @@ def main(config_dir: str):
     logger.print(f"Teacher model accuracy: {teacher_acc}")
 
     # ablation study on transfer dataset
-    transfer_dataset = ["None", "MNIST", "MNIST-hard", "MNIST-vanilla", "MNIST/CycleGAN", "MNIST/DDPM", "MNIST+CycleGAN", "MNIST+DDPM"]
+    transfer_dataset = ["None", "MNIST", "MNIST-hard", "MNIST-vanilla", "MNIST/Noise", "MNIST/ActMax", "MNIST/cGAN", "MNIST/CycleGAN", "MNIST/DDPM", "MNIST+Noise", "MNIST+ActMax", "MNIST+cGAN", "MNIST+CycleGAN", "MNIST+DDPM"]
     accuracy = []
     student_config = load_config(config["student_model_config"])
 
