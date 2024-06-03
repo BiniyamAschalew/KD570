@@ -339,10 +339,10 @@ if __name__ == '__main__':
         if (step + 1) % 100 == 0:
             show_log(step, train_iters, D_ms_losses, D_sm_losses, G_msm_losses, G_sms_losses)
     
-    torch.save(G.state_dict(), f'../models/MNIST-SVHN-CycleGAN-G-epoch-{train_iters}.pth')
-    torch.save(F.state_dict(), f'../models/MNIST-SVHN-CycleGAN-F-epoch-{train_iters}.pth')
-    torch.save(Dx.state_dict(), f'../models/MNIST-SVHN-CycleGAN-Dx-epoch-{train_iters}.pth')
-    torch.save(Dy.state_dict(), f'../models/MNIST-SVHN-CycleGAN-Dy-epoch-{train_iters}.pth')
+    torch.save(G.state_dict(), f'../trained_models/MNIST-SVHN-CycleGAN-G-epoch-{train_iters}.pth')
+    torch.save(F.state_dict(), f'../trained_models/MNIST-SVHN-CycleGAN-F-epoch-{train_iters}.pth')
+    torch.save(Dx.state_dict(), f'../trained_models/MNIST-SVHN-CycleGAN-Dx-epoch-{train_iters}.pth')
+    torch.save(Dy.state_dict(), f'../trained_models/MNIST-SVHN-CycleGAN-Dy-epoch-{train_iters}.pth')
     
     num_samples = 120000
     n_sample = 1000
