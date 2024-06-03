@@ -285,7 +285,7 @@ if __name__ == '__main__':
     num_classes=10
 
     # training hyper-parameters
-    train_iters=2000
+    train_iters=3000
     batch_size=128
     num_workers=2
 
