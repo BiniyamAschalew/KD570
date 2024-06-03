@@ -291,7 +291,7 @@ if __name__ == '__main__':
 
     # misc
     mode='train'
-    model_path='../models'
+    model_path='../trained_models'
     mnist_path='../data'
     svhn_path='../data/SVHN'
     download=True
