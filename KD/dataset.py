@@ -320,7 +320,10 @@ class SyntheticDataLoader:
 
     def _load_databatch(self, path):
         loaded_data = np.load(path)
-        loaded_tensor_cpu = loaded_data['data']
+        try:
+            loaded_tensor_cpu = loaded_data['data']
+        except:
+            loaded_tensor_cpu = loaded_data['arr_0']
         X_train = torch.tensor(loaded_tensor_cpu)
         Y_train = torch.zeros(X_train.size(0))
         
