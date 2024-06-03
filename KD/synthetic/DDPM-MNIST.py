@@ -240,7 +240,7 @@ if __name__ == '__main__':
             pbar.set_description(f"loss: {loss_ema:.4f}")
             optim.step()
 
-    torch.save(epsilon_model.state_dict(), f'../models/MNIST-DDPM-epoch-{n_epoch}.pth')
+    torch.save(epsilon_model.state_dict(), f'../trained_models/MNIST-DDPM-epoch-{n_epoch}.pth')
 
     # for eval, save an image of currently generated samples (top rows)
     # followed by real images (bottom rows)
