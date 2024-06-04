@@ -41,6 +41,6 @@ python [PYTHON_SOURCE_CODE_NAME].py
 ## Supplementary Materials
 Our model weights, real and synthetic datasets, logs, and experiment results are made available at [this link](https://drive.google.com/drive/folders/1olJpDZGBdqGfRMRGX4YWHssmSQlni3MQ?usp=sharing). To run the experiments properly, download this LFS and move its contents to the `KD` directory (e.g., the `data` directory is in the same hierarchical position as the `configs` directory).
 
-The slides for this project are made available at [this link](https://drive.google.com/file/d/1_7xqqR90UwgvPAeDePMi4GJpRhfSYnVZ/view?usp=sharing). 
+The slides for this project are made available at [this link](https://drive.google.com/file/d/1_7xqqR90UwgvPAeDePMi4GJpRhfSYnVZ/view?usp=sharing), and preliminary experiments in Google Colab at [this link](https://colab.research.google.com/drive/1BgBITP3YACQsZ48FGG0AMv5wktvt1uNq?usp=sharing).  
 Feel free to contact us at [bryannwijaya@kaist.ac.kr](mailto:bryannwijaya@kaist.ac.kr) for any issues or inquiries.  
 Happy coding!
