@@ -15,8 +15,8 @@ import matplotlib.pyplot as plt
 # Define variables
 CUDA = True
 seed = 42
-DATA_PATH = './data'
-CGAN_PATH = './cgan'
+DATA_PATH = '../data'
+CGAN_PATH = '../trained_models/synthetic'
 os.makedirs(CGAN_PATH, exist_ok=True)
 batch_size = 128
 epochs = 1000
@@ -167,9 +167,9 @@ for epoch in range(epochs):
                         g_loss.mean().item())
             print(statement)
             #log the statement
-            with open('./cgan/log.txt', 'a') as f:
+            with open('./cGAN-train-MNIST.txt', 'a') as f:
                 f.write(statement + '\n')
             
             #save the model
-            torch.save(netG.state_dict(), './cgan/netG.pth')
-            torch.save(netD.state_dict(), './cgan/netD.pth')
+            torch.save(netG.state_dict(), f'../trained_models/synthetic/MNIST-cGAN-G-epoch-{epochs}.pth')
+            torch.save(netD.state_dict(), f'../trained_models/synthetic/MNIST-cGAN-D-epoch-{epochs}.pth')
