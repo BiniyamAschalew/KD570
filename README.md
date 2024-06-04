@@ -32,7 +32,7 @@ student-[TEACHER_ARCH]-[STUDENT_ARCH]-[TRAINING_DATASET]-[TRANSFER_DATASET]-[SOF
 ```
 The program will attempt to find the pre-trained teacher model upon execution, and when it is not found, it will train the teacher based on the provided configs.
 
-To run the synthetic dataset generation, go to the `KD/synthetic` directory and run the relevant source code as it is.
+To run the synthetic dataset generation, go to the `KD/synthetic` directory and run the relevant source code as it is (except for ActMax, which requires some configs as above).
 ```
 cd KD/synthetic
 python [PYTHON_SOURCE_CODE_NAME].py
