@@ -141,7 +141,7 @@ def generate( model_config: str, dataset_config: str, size: int, device: str = "
     generator = SyntheticGenerator(model, dataset_config, device, logger, size)
     # assert(0)
 
-    num_samples = 120_000
+    num_samples = 120000
     n_sample = 1000
 
     num_sampling = num_samples // n_sample #120
@@ -162,10 +162,10 @@ def generate_save(generator, num_sampling):
         x_all = torch.cat([x_gen])
         x_all = torch.clamp(x_all, min=-1.00, max=1.00)
 
-        np.savez(f'./data/synthetic/MNIST/ACTIVATION/{i+1}_of_{num_sampling}.npz', data=x_all.cpu().detach().numpy())
+        np.savez(f'../data/synthetic/MNIST/ActMax/{i+1}_of_{num_sampling}.npz', data=x_all.cpu().detach().numpy())
         grid = make_grid(x_all*-1 + 1, nrow=25)
-        save_image(grid,  f"./data/synthetic/MNIST/ACTIVATION/{i+1}_of_{num_sampling}.png")
-        print('saved image at ' + f"./data/synthetic/MNIST/ACTIVATION/{i+1}_of_{num_sampling}.npz")
+        save_image(grid,  f"../data/synthetic/MNIST/ActMax/{i+1}_of_{num_sampling}.png")
+        print('saved image at ' + f"../data/synthetic/MNIST/ActMax/{i+1}_of_{num_sampling}.npz")
 
     return data_loader
 
