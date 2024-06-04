@@ -50,8 +50,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 #load the model and state_dict
 model = Generator(10, 1, 28, 100).to(device)
-model.load_state_dict(torch.load('cgan/netG.pth'))
-model.load_state_dict(torch.load('cgan/netG.pth'))
+model.load_state_dict(torch.load('../trained_models/synthetic/MNIST-cGAN-G-epoch-2000.pth'))
 model.eval()
 
 
@@ -68,9 +67,8 @@ with torch.no_grad():
         gen_imgs = gen_imgs.view(n_sample, 1, 28, 28)
         x_all = torch.cat([gen_imgs])
         x_all = torch.clamp(x_all, -1, 1)
-        np.savez(f'cgan/samples/{i+1}_of_{num_sampling}.npz', x_all.cpu().numpy())
+        np.savez(f'../data/synthetic/MNIST/cGAN/{i+1}_of_{num_sampling}.npz', x_all.cpu().numpy())
         grid = make_grid(gen_imgs*-1 + 1, nrow=5)
-        save_image(grid, f'cgan/samples/{i+1}_of_{num_sampling}.png')
-        #save_image(grid,  f"/root/data/synthetic/MNIST/DDPM/{i+1}_of_{num_sampling}.png")
-        print(f'sample_{i+1}_of_{num_sampling}.png saved'.format(i))
+        save_image(grid, f'../data/synthetic/MNIST/cGAN/{i+1}_of_{num_sampling}.png')
+        print(f'{i+1}_of_{num_sampling}.png saved'.format(i))
         
