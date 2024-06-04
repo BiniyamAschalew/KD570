@@ -19,8 +19,8 @@ Happy coding!
 
 ## Basic Information
 The main implementations are in `KD`.
-1. Teacher softmax temperature experiments were performed with `KD/temperature.py`
-2. Student learning rate experiments were performed with `KD/learning_rate.py`
+1. Teacher softmax temperature experiments were performed with `KD/temperature_ablation.py`
+2. Student learning rate experiments were performed with `KD/learning_rate_ablation.py`
 3. Transfer dataset experiments were performed with `KD/transfer_dataset_[DATASET_NAME].py`
 4. Synthetic dataset generations are done with the source codes in `KD/synthetic`
 
