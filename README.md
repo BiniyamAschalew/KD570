@@ -7,6 +7,16 @@ Biniyam Aschalew Tolera, 20210733
 Minhajur Rahman Chowdhury Mahim, 20210753  
 Bryan Nathanael Wijaya*, 20244078  
 
+## Supplementary Materials
+Our model weights, real and synthetic datasets, logs, and experiment results are made available at our <b>[Large File Storage (LFS)](https://drive.google.com/drive/folders/1olJpDZGBdqGfRMRGX4YWHssmSQlni3MQ?usp=sharing)</b>. To run the experiments properly, download this LFS and move its contents to the `KD` directory (e.g., the `data` directory from the LFS is in the same hierarchical position as the `KD/configs` directory).
+
+<b>Final Presentation Slides</b>: [click here](https://drive.google.com/file/d/1_7xqqR90UwgvPAeDePMi4GJpRhfSYnVZ/view?usp=sharing)   
+<b>Proposal Presentation Slides</b>: [click here](https://drive.google.com/file/d/1RY5rADP_7IwGY96B4_OZ1qsWX33N71hS/view?usp=drive_link)  
+<b>Preliminary Experiments</b>: [click here](https://colab.research.google.com/drive/1BgBITP3YACQsZ48FGG0AMv5wktvt1uNq?usp=sharing) (Google Colab, presented in proposal presentation)  
+
+Feel free to contact us at [bryannwijaya@kaist.ac.kr](mailto:bryannwijaya@kaist.ac.kr) for any issues, inquiries, or requests.  
+Happy coding!
+
 ## Basic Information
 The main implementations are in `KD`.
 1. Teacher softmax temperature experiments were performed with `KD/temperature.py`
@@ -15,7 +25,7 @@ The main implementations are in `KD`.
 4. Synthetic dataset generations are done with the source codes in `KD/synthetic`
 
 ## Experiments
-You will need to install PyTorch with the appropriate CUDA driver version and a couple more dependencies to run our experiments, which can be installed easily with `pip` or `conda`. We highly recommend you create a separate virtual environment for this repository using commands like the following before installing the dependencies.
+You will need to install PyTorch with the appropriate CUDA driver version and several other dependencies to run our experiments, which can be installed easily with `pip` or `conda`. We highly recommend you create a separate virtual environment for this repository using commands like the following before installing the dependencies.
 ```
 conda create -n KD570
 conda activate KD570
@@ -37,10 +47,3 @@ To run the synthetic dataset generation, go to the `KD/synthetic` directory and 
 cd KD/synthetic
 python [PYTHON_SOURCE_CODE_NAME].py
 ```
-
-## Supplementary Materials
-Our model weights, real and synthetic datasets, logs, and experiment results are made available at [this link](https://drive.google.com/drive/folders/1olJpDZGBdqGfRMRGX4YWHssmSQlni3MQ?usp=sharing). To run the experiments properly, download this LFS and move its contents to the `KD` directory (e.g., the `data` directory is in the same hierarchical position as the `configs` directory).
-
-The slides for this project are made available at [this link](https://drive.google.com/file/d/1_7xqqR90UwgvPAeDePMi4GJpRhfSYnVZ/view?usp=sharing), and preliminary experiments in Google Colab at [this link](https://colab.research.google.com/drive/1BgBITP3YACQsZ48FGG0AMv5wktvt1uNq?usp=sharing).  
-Feel free to contact us at [bryannwijaya@kaist.ac.kr](mailto:bryannwijaya@kaist.ac.kr) for any issues or inquiries.  
-Happy coding!
