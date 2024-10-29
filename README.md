@@ -14,7 +14,7 @@ Our model weights, real and synthetic datasets, logs, and experiment results are
 <b>Proposal Presentation Slides</b>: [click here](https://drive.google.com/file/d/1RY5rADP_7IwGY96B4_OZ1qsWX33N71hS/view?usp=drive_link)  
 <b>Preliminary Experiments</b>: [click here](https://colab.research.google.com/drive/1BgBITP3YACQsZ48FGG0AMv5wktvt1uNq?usp=sharing) (Google Colab, presented in proposal presentation)  
 
-Feel free to contact us at [bryannwijaya@kaist.ac.kr](mailto:bryannwijaya@kaist.ac.kr) for any issues, inquiries, or requests.  
+Feel free to contact us at [bryannwijaya@kaist.ac.kr](mailto:bryannwijaya@kaist.ac.kr), or [binasc@kaist.ac.kr](mailto:binasc@kaist.ac.kr) for any issues, inquiries, or requests.  
 Happy coding!
 
 ## Basic Information
