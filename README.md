@@ -17,6 +17,8 @@ Our model weights, real and synthetic datasets, logs, and experiment results are
 Feel free to contact us at [bryannwijaya@kaist.ac.kr](mailto:bryannwijaya@kaist.ac.kr), or [binasc@kaist.ac.kr](mailto:binasc@kaist.ac.kr) for any issues, inquiries, or requests.  
 Happy coding!
 
+![Figure 1: Generated data](figure.jpg)
+
 ## Basic Information
 The main implementations are in `KD`.
 1. Teacher softmax temperature experiments were performed with `KD/temperature_ablation.py`
